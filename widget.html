@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DENTech Chatbot Widget</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+  #dt-launcher {
+    position: fixed; bottom: 24px; right: 24px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #1a6fc4; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(26,111,196,0.4);
+    z-index: 99998; transition: transform 0.2s, background 0.2s;
+  }
+  #dt-launcher:hover { background: #155da0; transform: scale(1.08); }
+  #dt-launcher svg { width: 28px; height: 28px; fill: #fff; }
+  #dt-badge {
+    position: absolute; top: -4px; right: -4px;
+    background: #e53e3e; color: #fff; font-size: 10px; font-weight: 700;
+    width: 18px; height: 18px; border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    border: 2px solid #fff;
+  }
+
+  #dt-window {
+    position: fixed; bottom: 96px; right: 24px;
+    width: 370px; max-height: 580px;
+    background: #fff; border-radius: 16px;
+    display: flex; flex-direction: column;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+    z-index: 99997; overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    opacity: 0; pointer-events: none;
+    transition: transform 0.22s cubic-bezier(.4,0,.2,1), opacity 0.18s;
+  }
+  #dt-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
+
+  #dt-header {
+    background: linear-gradient(135deg, #1a6fc4 0%, #1557a0 100%);
+    padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex-shrink: 0;
+  }
+  .dt-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .dt-hinfo { flex: 1; }
+  .dt-hname { color: #fff; font-size: 14px; font-weight: 600; }
+  .dt-hstatus { color: rgba(255,255,255,0.72); font-size: 11px; margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+  .dt-dot { width: 7px; height: 7px; background: #48bb78; border-radius: 50%; }
+  #dt-close {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.7); font-size: 22px; line-height: 1;
+    padding: 2px 5px; border-radius: 6px; transition: all 0.15s;
+  }
+  #dt-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+  #dt-messages {
+    flex: 1; overflow-y: auto; padding: 14px 13px;
+    display: flex; flex-direction: column; gap: 9px;
+    background: #f4f6f9;
+  }
+  #dt-messages::-webkit-scrollbar { width: 4px; }
+  #dt-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
+
+  .dt-msg { display: flex; flex-direction: column; max-width: 87%; }
+  .dt-msg.bot { align-self: flex-start; }
+  .dt-msg.user { align-self: flex-end; }
+
+  .dt-bubble {
+    padding: 9px 13px; border-radius: 14px;
+    font-size: 13.5px; line-height: 1.55;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .dt-msg.bot .dt-bubble {
+    background: #fff; color: #1a202c;
+    border: 1px solid #e2e8f0; border-bottom-left-radius: 4px;
+  }
+  .dt-msg.user .dt-bubble {
+    background: #1a6fc4; color: #fff; border-bottom-right-radius: 4px;
+  }
+  .dt-time { font-size: 10px; color: #a0aec0; margin-top: 3px; padding: 0 2px; }
+  .dt-msg.user .dt-time { text-align: right; }
+
+  .dt-qrow { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .dt-qbtn {
+    background: #fff; border: 1px solid #bee3f8; color: #1a6fc4;
+    font-size: 12px; padding: 5px 11px; border-radius: 20px; cursor: pointer;
+    transition: all 0.15s; white-space: nowrap; font-family: inherit;
+  }
+  .dt-qbtn:hover { background: #1a6fc4; color: #fff; border-color: #1a6fc4; }
+  .dt-qbtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .dt-typing {
+    display: flex; align-items: center; gap: 4px;
+    padding: 10px 13px; background: #fff;
+    border: 1px solid #e2e8f0; border-radius: 14px; border-bottom-left-radius: 4px;
+    width: fit-content;
+  }
+  .dt-typing span {
+    width: 6px; height: 6px; background: #1a6fc4; border-radius: 50%;
+    animation: dtb 1.2s infinite; opacity: 0.55;
+  }
+  .dt-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .dt-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dtb { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+  #dt-footer {
+    border-top: 1px solid #edf2f7; padding: 10px 12px;
+    display: flex; gap: 8px; align-items: flex-end;
+    background: #fff; flex-shrink: 0;
+  }
+  #dt-input {
+    flex: 1; border: 1px solid #cbd5e0; border-radius: 20px;
+    padding: 8px 14px; font-size: 13.5px; background: #f7fafc;
+    color: #2d3748; resize: none; outline: none;
+    max-height: 100px; overflow-y: auto; line-height: 1.45;
+    font-family: inherit; transition: border-color 0.15s, background 0.15s;
+  }
+  #dt-input:focus { border-color: #1a6fc4; background: #fff; }
+  #dt-input::placeholder { color: #a0aec0; }
+  #dt-send {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #1a6fc4; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: background 0.15s, transform 0.12s;
+  }
+  #dt-send:hover { background: #155da0; }
+  #dt-send:active { transform: scale(0.92); }
+  #dt-send:disabled { background: #cbd5e0; cursor: not-allowed; }
+  #dt-send svg { width: 16px; height: 16px; fill: #fff; }
+  #dt-footnote {
+    text-align: center; font-size: 10px; color: #a0aec0;
+    padding: 0 0 8px; background: #fff; flex-shrink: 0;
+  }
+
+  a.wa-l { color: #25D366; font-weight: 600; text-decoration: none; }
+  a.wa-l:hover { text-decoration: underline; }
+  a.ig-l { color: #C13584; font-weight: 600; text-decoration: none; }
+  a.ig-l:hover { text-decoration: underline; }
+
+  @media (max-width: 420px) {
+    #dt-window { width: calc(100vw - 20px); right: 10px; bottom: 84px; }
+    #dt-launcher { right: 16px; bottom: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<button id="dt-launcher" aria-label="DENTech destek chatını aç">
+  <span id="dt-badge">1</span>
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+</button>
+
+<div id="dt-window" role="dialog" aria-label="DENTech Medikal Destek">
+  <div id="dt-header">
+    <div class="dt-avatar">D</div>
+    <div class="dt-hinfo">
+      <div class="dt-hname">DENT — DENTech Asistan</div>
+      <div class="dt-hstatus"><span class="dt-dot"></span>Şu an aktif</div>
+    </div>
+    <button id="dt-close" aria-label="Kapat">✕</button>
+  </div>
+
+  <div id="dt-messages">
+    <div class="dt-msg bot">
+      <div class="dt-bubble">Merhaba! 👋 Ben <strong>DENT</strong>, DENTech Medikal'in dijital asistanıyım.
+
+Ürünler, siparişler veya teknik destek için buradayım.</div>
+      <div class="dt-qrow">
+        <button class="dt-qbtn" onclick="quickSend('Klinik cihazlarınız hakkında bilgi almak istiyorum')">🔬 Klinik Cihazlar</button>
+        <button class="dt-qbtn" onclick="quickSend('Frez ürünleriniz hakkında bilgi almak istiyorum')">⚙️ Frezler</button>
+        <button class="dt-qbtn" onclick="quickSend('Ölçü materyalleri hakkında bilgi almak istiyorum')">🧪 Ölçü Materyalleri</button>
+        <button class="dt-qbtn" onclick="quickSend('Pedodonti ürünleri hakkında bilgi almak istiyorum')">🦷 Pedodonti</button>
+        <button class="dt-qbtn" onclick="quickSend('Uzmanla görüşmek istiyorum')">📞 Uzman Desteği</button>
+      </div>
+      <div class="dt-time" id="dt-wtime"></div>
+    </div>
+  </div>
+
+  <div id="dt-footer">
+    <textarea id="dt-input" placeholder="Mesajınızı yazın..." rows="1" aria-label="Mesaj"></textarea>
+    <button id="dt-send" disabled aria-label="Gönder">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <div id="dt-footnote">dentechmedikal.com · Powered by AI</div>
+</div>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ⚙️  TEK DEĞİŞTİRECEĞİNİZ YER:
+//     Vercel deploy sonrası aldığınız URL
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const API_URL = "https://dentech-chat-proxy.vercel.app/api/chat";
+// örnek: "https://dentech-chat-XXXX.vercel.app/api/chat"
+
+let history = [];
+let busy = false;
+
+const launcher = document.getElementById('dt-launcher');
+const badge    = document.getElementById('dt-badge');
+const win      = document.getElementById('dt-window');
+const input    = document.getElementById('dt-input');
+const sendBtn  = document.getElementById('dt-send');
+const msgs     = document.getElementById('dt-messages');
+
+document.getElementById('dt-wtime').textContent = getTime();
+setTimeout(() => { if (!win.classList.contains('open')) badge.style.display = 'flex'; }, 3000);
+
+launcher.addEventListener('click', () => {
+  win.classList.add('open');
+  badge.style.display = 'none';
+  setTimeout(() => input.focus(), 250);
+});
+document.getElementById('dt-close').addEventListener('click', () => win.classList.remove('open'));
+
+input.addEventListener('input', () => {
+  sendBtn.disabled = !input.value.trim() || busy;
+  input.style.height = 'auto';
+  input.style.height = Math.min(input.scrollHeight, 100) + 'px';
+});
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!sendBtn.disabled) doSend(); }
+});
+sendBtn.addEventListener('click', doSend);
+
+function quickSend(text) {
+  document.querySelectorAll('.dt-qbtn').forEach(b => b.disabled = true);
+  push('user', text);
+  callAPI();
+}
+
+function doSend() {
+  const text = input.value.trim();
+  if (!text || busy) return;
+  input.value = ''; input.style.height = 'auto'; sendBtn.disabled = true;
+  push('user', text);
+  callAPI();
+}
+
+function push(role, content) {
+  addBubble(role, content);
+  history.push({ role, content });
+}
+
+function addBubble(role, text) {
+  const d = document.createElement('div');
+  d.className = 'dt-msg ' + role;
+  const b = document.createElement('div');
+  b.className = 'dt-bubble';
+  b.innerHTML = role === 'bot' ? fmt(text) : esc(text);
+  const t = document.createElement('div');
+  t.className = 'dt-time'; t.textContent = getTime();
+  d.appendChild(b); d.appendChild(t);
+  msgs.appendChild(d); scrollDown();
+}
+
+function showTyping() {
+  const d = document.createElement('div');
+  d.className = 'dt-msg bot'; d.id = 'dt-typing';
+  d.innerHTML = '<div class="dt-typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(d); scrollDown();
+}
+function removeTyping() { const e = document.getElementById('dt-typing'); if (e) e.remove(); }
+
+function fmt(text) {
+  let t = esc(text);
+  t = t.replace(/(https:\/\/wa\.me\/[^\s<]+)/g,
+    '<a href="$1" class="wa-l" target="_blank" rel="noopener">📲 WhatsApp\'a Yaz</a>');
+  t = t.replace(/(https:\/\/instagram\.com\/[^\s<]+)/g,
+    '<a href="$1" class="ig-l" target="_blank" rel="noopener">📸 Instagram\'da Ulaş</a>');
+  t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  t = t.replace(/\n/g, '<br>');
+  return t;
+}
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function getTime() {
+  return new Date().toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit' });
+}
+function scrollDown() { msgs.scrollTop = msgs.scrollHeight; }
+
+async function callAPI() {
+  if (busy) return;
+  busy = true; sendBtn.disabled = true;
+  showTyping();
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history.slice(-20) })
+    });
+
+    const data = await res.json();
+    removeTyping();
+
+    if (!res.ok || data.error) {
+      addBubble('bot', 'Bir sorun oluştu. Lütfen doğrudan WhatsApp\'tan yazın:\nhttps://wa.me/905324527322');
+    } else {
+      const reply = data.choices?.[0]?.message?.content || 'Yanıt alınamadı.';
+      history.push({ role: 'assistant', content: reply });
+      if (history.length > 24) history = history.slice(-22);
+      addBubble('bot', reply);
+    }
+  } catch {
+    removeTyping();
+    addBubble('bot', 'Bağlantı hatası. WhatsApp\'tan yazabilirsiniz:\nhttps://wa.me/905324527322');
+  }
+
+  busy = false;
+  sendBtn.disabled = !input.value.trim();
+}
+</script>
+</body>
+</html>
