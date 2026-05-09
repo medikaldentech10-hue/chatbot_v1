@@ -11,12 +11,12 @@
   #dt-launcher {
     position: fixed; bottom: 24px; right: 24px;
     width: 60px; height: 60px; border-radius: 50%;
-    background: #1a6fc4; border: none; cursor: pointer;
+    background: #4FC5C5; border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 16px rgba(26,111,196,0.4);
+    box-shadow: 0 4px 16px rgba(79,197,197,0.38);
     z-index: 99998; transition: transform 0.2s, background 0.2s;
   }
-  #dt-launcher:hover { background: #155da0; transform: scale(1.08); }
+  #dt-launcher:hover { background: #37AFAF; transform: scale(1.08); }
   #dt-launcher svg { width: 28px; height: 28px; fill: #fff; }
   #dt-badge {
     position: absolute; top: -4px; right: -4px;
@@ -40,7 +40,7 @@
   #dt-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
 
   #dt-header {
-    background: linear-gradient(135deg, #1a6fc4 0%, #1557a0 100%);
+    background: linear-gradient(135deg, #4FC5C5 0%, #2FAAAA 100%);
     padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex-shrink: 0;
   }
   .dt-avatar {
@@ -82,18 +82,18 @@
     border: 1px solid #e2e8f0; border-bottom-left-radius: 4px;
   }
   .dt-msg.user .dt-bubble {
-    background: #1a6fc4; color: #fff; border-bottom-right-radius: 4px;
+    background: #4FC5C5; color: #fff; border-bottom-right-radius: 4px;
   }
   .dt-time { font-size: 10px; color: #a0aec0; margin-top: 3px; padding: 0 2px; }
   .dt-msg.user .dt-time { text-align: right; }
 
   .dt-qrow { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
   .dt-qbtn {
-    background: #fff; border: 1px solid #bee3f8; color: #1a6fc4;
+    background: #fff; border: 1px solid #B9EEEE; color: #4FC5C5;
     font-size: 12px; padding: 5px 11px; border-radius: 20px; cursor: pointer;
     transition: all 0.15s; white-space: nowrap; font-family: inherit;
   }
-  .dt-qbtn:hover { background: #1a6fc4; color: #fff; border-color: #1a6fc4; }
+  .dt-qbtn:hover { background: #4FC5C5; color: #fff; border-color: #4FC5C5; }
   .dt-qbtn:disabled { opacity: 0.4; cursor: not-allowed; }
 
   .dt-typing {
@@ -103,7 +103,7 @@
     width: fit-content;
   }
   .dt-typing span {
-    width: 6px; height: 6px; background: #1a6fc4; border-radius: 50%;
+    width: 6px; height: 6px; background: #4FC5C5; border-radius: 50%;
     animation: dtb 1.2s infinite; opacity: 0.55;
   }
   .dt-typing span:nth-child(2) { animation-delay: 0.2s; }
@@ -122,15 +122,15 @@
     max-height: 100px; overflow-y: auto; line-height: 1.45;
     font-family: inherit; transition: border-color 0.15s, background 0.15s;
   }
-  #dt-input:focus { border-color: #1a6fc4; background: #fff; }
+  #dt-input:focus { border-color: #4FC5C5; background: #fff; }
   #dt-input::placeholder { color: #a0aec0; }
   #dt-send {
     width: 36px; height: 36px; border-radius: 50%;
-    background: #1a6fc4; border: none; cursor: pointer;
+    background: #4FC5C5; border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     transition: background 0.15s, transform 0.12s;
   }
-  #dt-send:hover { background: #155da0; }
+  #dt-send:hover { background: #37AFAF; }
   #dt-send:active { transform: scale(0.92); }
   #dt-send:disabled { background: #cbd5e0; cursor: not-allowed; }
   #dt-send svg { width: 16px; height: 16px; fill: #fff; }
@@ -169,9 +169,9 @@
 
   <div id="dt-messages">
     <div class="dt-msg bot">
-      <div class="dt-bubble">Merhaba! 👋 Ben <strong>DENT</strong>, DENTech Medikal'in dijital asistanıyım.
+      <div class="dt-bubble">Merhaba. Ben <strong>DENT</strong>, DENTech Medikal dijital ürün asistanı.
 
-Ürünler, siparişler veya teknik destek için buradayım.</div>
+Ürün bilgisi, uygun ürün yönlendirmesi ve satış ekibine hızlı aktarım için buradayım.</div>
       <div class="dt-qrow">
         <button class="dt-qbtn" onclick="quickSend('Klinik cihazlarınız hakkında bilgi almak istiyorum')">🔬 Klinik Cihazlar</button>
         <button class="dt-qbtn" onclick="quickSend('Frez ürünleriniz hakkında bilgi almak istiyorum')">⚙️ Frezler</button>
@@ -189,7 +189,7 @@
       <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
   </div>
-  <div id="dt-footnote">dentechmedikal.com · Powered by AI</div>
+  <div id="dt-footnote">DENTech Medikal · Yapay zeka destekli ürün asistanı</div>
 </div>
 
 <script>
@@ -197,7 +197,7 @@
 // ⚙️  TEK DEĞİŞTİRECEĞİNİZ YER:
 //     Vercel deploy sonrası aldığınız URL
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const API_URL = "https://dentech-chat-proxy.vercel.app/api/chat";
+const API_URL = "https://BURAYA-VERCEL-URLINIZ.vercel.app/api/chat";
 // örnek: "https://dentech-chat-XXXX.vercel.app/api/chat"
 
 let history = [];
