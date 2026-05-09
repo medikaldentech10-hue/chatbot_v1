@@ -105,3 +105,4 @@ Fiyat sorusunda bot kesinlikle fiyat yazmamalı.
 - ürün kartı / görsel gösterimi
 - WhatsApp mesajına ürün adını otomatik gömme
 - kullanıcı konuşma kayıtları ve lead skoru
+# chatbot_v1
