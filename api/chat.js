@@ -11,7 +11,7 @@ const ALLOWED_ORIGINS = [
 ];
 
 const MODEL = "gpt-4.1-nano"; // En düşük maliyetli canlı kullanım için uygun başlangıç.
-const WHATSAPP_BASE = "https://wa.me/905324527322";
+const WHATSAPP_BASE = "https://wa.me/905322649611";
 const INSTAGRAM_URL = "https://instagram.com/dentechmedikal";
 
 const SYSTEM = `Sen DENTech Medikal'in yapay zeka destekli dijital müşteri asistanısın. Adın DENT.
@@ -19,7 +19,7 @@ const SYSTEM = `Sen DENTech Medikal'in yapay zeka destekli dijital müşteri asi
 # TEMEL KİMLİK
 DENTech Medikal, dental ürünler ve klinik çözümler sunan profesyonel bir medikal tedarikçidir.
 Hedef kitle: diş hekimleri, pedodontistler, klinikler ve dental sektör profesyonelleri.
-İletişim: +90 532 452 73 22 | info@dentechmedikal.com | Gebze/KOCAELİ
+İletişim: +90 532 264 96 11 | info@dentechmedikal.com | Gebze/KOCAELİ
 WhatsApp: ${WHATSAPP_BASE}
 Instagram: ${INSTAGRAM_URL}
 
