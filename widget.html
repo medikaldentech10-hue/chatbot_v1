@@ -159,26 +159,26 @@
 
 <div id="dt-window" role="dialog" aria-label="DENTech Medikal Destek">
   <div id="dt-header">
-    <div class="dt-avatar">D</div>
+    <div class="dt-avatar">🦷</div>
     <div class="dt-hinfo">
-      <div class="dt-hname">DENT — DENTech Asistan</div>
-      <div class="dt-hstatus"><span class="dt-dot"></span>Şu an aktif</div>
+      <div class="dt-hname">DEO AI</div>
+      <div class="dt-hstatus"><span class="dt-dot"></span>Dental Ürün Asistanı</div>
     </div>
     <button id="dt-close" aria-label="Kapat">✕</button>
   </div>
 
   <div id="dt-messages">
     <div class="dt-msg bot">
-      <div class="dt-bubble">Merhaba. Ben <strong>DENT</strong>, DENTech Medikal dijital ürün asistanı.
+      <div class="dt-bubble">Merhaba! 👋 Ben <strong>DEO AI</strong>, DENTech Medikal'in dijital asistanıyım.
 
-Ürün bilgisi, uygun ürün yönlendirmesi ve satış ekibine hızlı aktarım için buradayım.</div>
-      <div class="dt-qrow">
-        <button class="dt-qbtn" onclick="quickSend('Klinik cihazlarınız hakkında bilgi almak istiyorum')">🔬 Klinik Cihazlar</button>
-        <button class="dt-qbtn" onclick="quickSend('Frez ürünleriniz hakkında bilgi almak istiyorum')">⚙️ Frezler</button>
-        <button class="dt-qbtn" onclick="quickSend('Ölçü materyalleri hakkında bilgi almak istiyorum')">🧪 Ölçü Materyalleri</button>
-        <button class="dt-qbtn" onclick="quickSend('Pedodonti ürünleri hakkında bilgi almak istiyorum')">🦷 Pedodonti</button>
-        <button class="dt-qbtn" onclick="quickSend('Uzmanla görüşmek istiyorum')">📞 Uzman Desteği</button>
-      </div>
+        Ürünler, siparişler veya teknik destek için size yardımcı olabilirim.</div>
+        <div class="dt-qrow">
+          <button class="dt-qbtn" data-msg="RVG ve klinik cihazlar hakkında bilgi almak istiyorum">RVG & Klinik Cihazlar</button>
+          <button class="dt-qbtn" data-msg="JOTA frez ürünleri hakkında bilgi almak istiyorum">JOTA Rotary Systems</button>
+          <button class="dt-qbtn" data-msg="JB Tray ve ölçü sistemleri hakkında bilgi almak istiyorum">JB Tray & Ölçü Sistemleri</button>
+          <button class="dt-qbtn" data-msg="Pedodonti ürünleri hakkında bilgi almak istiyorum">Pedodonti Sistemleri</button>
+          <button class="dt-qbtn" data-msg="Uzman temsilciyle görüşmek istiyorum">Uzman Temsilci</button>
+        </div>
       <div class="dt-time" id="dt-wtime"></div>
     </div>
   </div>
@@ -224,7 +224,14 @@ input.addEventListener('input', () => {
 input.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!sendBtn.disabled) doSend(); }
 });
-sendBtn.addEventListener('click', doSend);
+sendBtn.addEventListener('click', doSend);  
+
+document.querySelectorAll('.dt-qbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const msg = btn.getAttribute('data-msg');
+    if (msg) quickSend(msg);
+  });
+});
 
 function quickSend(text) {
   document.querySelectorAll('.dt-qbtn').forEach(b => b.disabled = true);
@@ -299,7 +306,7 @@ async function callAPI() {
     removeTyping();
 
     if (!res.ok || data.error) {
-      addBubble('bot', 'Bir sorun oluştu. Lütfen doğrudan WhatsApp\'tan yazın:\nhttps://wa.me/905324527322');
+      addBubble('bot', 'Bir sorun oluştu. Lütfen doğrudan WhatsApp\'tan yazın:\nhttps://wa.me/905322649611');
     } else {
       const reply = data.choices?.[0]?.message?.content || 'Yanıt alınamadı.';
       history.push({ role: 'assistant', content: reply });
@@ -308,7 +315,7 @@ async function callAPI() {
     }
   } catch {
     removeTyping();
-    addBubble('bot', 'Bağlantı hatası. WhatsApp\'tan yazabilirsiniz:\nhttps://wa.me/905324527322');
+    addBubble('bot', 'Bağlantı hatası. WhatsApp\'tan yazabilirsiniz:\nhttps://wa.me/905322649611');
   }
 
   busy = false;
