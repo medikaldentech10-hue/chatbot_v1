@@ -11,12 +11,12 @@
   #dt-launcher {
     position: fixed; bottom: 24px; right: 24px;
     width: 60px; height: 60px; border-radius: 50%;
-    background: #4FC5C5; border: none; cursor: pointer;
+    background: #1a6fc4; border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 16px rgba(79,197,197,0.38);
+    box-shadow: 0 4px 16px rgba(26,111,196,0.4);
     z-index: 99998; transition: transform 0.2s, background 0.2s;
   }
-  #dt-launcher:hover { background: #37AFAF; transform: scale(1.08); }
+  #dt-launcher:hover { background: #155da0; transform: scale(1.08); }
   #dt-launcher svg { width: 28px; height: 28px; fill: #fff; }
   #dt-badge {
     position: absolute; top: -4px; right: -4px;
@@ -40,7 +40,7 @@
   #dt-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
 
   #dt-header {
-    background: linear-gradient(135deg, #4FC5C5 0%, #2FAAAA 100%);
+    background: linear-gradient(135deg, #1a6fc4 0%, #1557a0 100%);
     padding: 14px 16px; display: flex; align-items: center; gap: 11px; flex-shrink: 0;
   }
   .dt-avatar {
@@ -82,18 +82,18 @@
     border: 1px solid #e2e8f0; border-bottom-left-radius: 4px;
   }
   .dt-msg.user .dt-bubble {
-    background: #4FC5C5; color: #fff; border-bottom-right-radius: 4px;
+    background: #1a6fc4; color: #fff; border-bottom-right-radius: 4px;
   }
   .dt-time { font-size: 10px; color: #a0aec0; margin-top: 3px; padding: 0 2px; }
   .dt-msg.user .dt-time { text-align: right; }
 
   .dt-qrow { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
   .dt-qbtn {
-    background: #fff; border: 1px solid #B9EEEE; color: #4FC5C5;
+    background: #fff; border: 1px solid #bee3f8; color: #1a6fc4;
     font-size: 12px; padding: 5px 11px; border-radius: 20px; cursor: pointer;
     transition: all 0.15s; white-space: nowrap; font-family: inherit;
   }
-  .dt-qbtn:hover { background: #4FC5C5; color: #fff; border-color: #4FC5C5; }
+  .dt-qbtn:hover { background: #1a6fc4; color: #fff; border-color: #1a6fc4; }
   .dt-qbtn:disabled { opacity: 0.4; cursor: not-allowed; }
 
   .dt-typing {
@@ -103,7 +103,7 @@
     width: fit-content;
   }
   .dt-typing span {
-    width: 6px; height: 6px; background: #4FC5C5; border-radius: 50%;
+    width: 6px; height: 6px; background: #1a6fc4; border-radius: 50%;
     animation: dtb 1.2s infinite; opacity: 0.55;
   }
   .dt-typing span:nth-child(2) { animation-delay: 0.2s; }
@@ -122,15 +122,15 @@
     max-height: 100px; overflow-y: auto; line-height: 1.45;
     font-family: inherit; transition: border-color 0.15s, background 0.15s;
   }
-  #dt-input:focus { border-color: #4FC5C5; background: #fff; }
+  #dt-input:focus { border-color: #1a6fc4; background: #fff; }
   #dt-input::placeholder { color: #a0aec0; }
   #dt-send {
     width: 36px; height: 36px; border-radius: 50%;
-    background: #4FC5C5; border: none; cursor: pointer;
+    background: #1a6fc4; border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     transition: background 0.15s, transform 0.12s;
   }
-  #dt-send:hover { background: #37AFAF; }
+  #dt-send:hover { background: #155da0; }
   #dt-send:active { transform: scale(0.92); }
   #dt-send:disabled { background: #cbd5e0; cursor: not-allowed; }
   #dt-send svg { width: 16px; height: 16px; fill: #fff; }
@@ -143,6 +143,14 @@
   a.wa-l:hover { text-decoration: underline; }
   a.ig-l { color: #C13584; font-weight: 600; text-decoration: none; }
   a.ig-l:hover { text-decoration: underline; }
+  a.dt-linkbtn {
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-top: 8px; padding: 8px 12px; border-radius: 999px;
+    background: #4FC5C5; color: #fff !important; font-weight: 600;
+    font-size: 12.5px; text-decoration: none; box-shadow: 0 5px 14px rgba(79,197,197,0.22);
+  }
+  a.dt-linkbtn:hover { background: #37AFAF; text-decoration: none; }
+  a.dt-textlink { color: #217f7f; font-weight: 600; text-decoration: underline; }
 
   @media (max-width: 420px) {
     #dt-window { width: calc(100vw - 20px); right: 10px; bottom: 84px; }
@@ -159,26 +167,26 @@
 
 <div id="dt-window" role="dialog" aria-label="DENTech Medikal Destek">
   <div id="dt-header">
-    <div class="dt-avatar">🦷</div>
+    <div class="dt-avatar">D</div>
     <div class="dt-hinfo">
-      <div class="dt-hname">DEO AI</div>
-      <div class="dt-hstatus"><span class="dt-dot"></span>Dental Ürün Asistanı</div>
+      <div class="dt-hname">DENT — DENTech Asistan</div>
+      <div class="dt-hstatus"><span class="dt-dot"></span>Şu an aktif</div>
     </div>
     <button id="dt-close" aria-label="Kapat">✕</button>
   </div>
 
   <div id="dt-messages">
     <div class="dt-msg bot">
-      <div class="dt-bubble">Merhaba! 👋 Ben <strong>DEO AI</strong>, DENTech Medikal'in dijital asistanıyım.
+      <div class="dt-bubble">Merhaba! 👋 Ben <strong>DENT</strong>, DENTech Medikal'in dijital asistanıyım.
 
-        Ürünler, siparişler veya teknik destek için size yardımcı olabilirim.</div>
-        <div class="dt-qrow">
-          <button class="dt-qbtn" data-msg="RVG ve klinik cihazlar hakkında bilgi almak istiyorum">RVG & Klinik Cihazlar</button>
-          <button class="dt-qbtn" data-msg="JOTA frez ürünleri hakkında bilgi almak istiyorum">JOTA Rotary Systems</button>
-          <button class="dt-qbtn" data-msg="JB Tray ve ölçü sistemleri hakkında bilgi almak istiyorum">JB Tray & Ölçü Sistemleri</button>
-          <button class="dt-qbtn" data-msg="Pedodonti ürünleri hakkında bilgi almak istiyorum">Pedodonti Sistemleri</button>
-          <button class="dt-qbtn" data-msg="Uzman temsilciyle görüşmek istiyorum">Uzman Temsilci</button>
-        </div>
+Ürünler, siparişler veya teknik destek için buradayım.</div>
+      <div class="dt-qrow">
+        <button class="dt-qbtn" onclick="quickSend('Klinik cihazlarınız hakkında bilgi almak istiyorum')">🔬 Klinik Cihazlar</button>
+        <button class="dt-qbtn" onclick="quickSend('Frez ürünleriniz hakkında bilgi almak istiyorum')">⚙️ Frezler</button>
+        <button class="dt-qbtn" onclick="quickSend('Ölçü materyalleri hakkında bilgi almak istiyorum')">🧪 Ölçü Materyalleri</button>
+        <button class="dt-qbtn" onclick="quickSend('Pedodonti ürünleri hakkında bilgi almak istiyorum')">🦷 Pedodonti</button>
+        <button class="dt-qbtn" onclick="quickSend('Uzmanla görüşmek istiyorum')">📞 Uzman Desteği</button>
+      </div>
       <div class="dt-time" id="dt-wtime"></div>
     </div>
   </div>
@@ -189,12 +197,16 @@
       <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
   </div>
-  <div id="dt-footnote">DENTech Medikal · Yapay zeka destekli ürün asistanı</div>
+  <div id="dt-footnote">dentechmedikal.com · Powered by AI</div>
 </div>
 
 <script>
-
-const API_URL = "https://chatbot-v1-xi.vercel.app/api/chat";
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ⚙️  TEK DEĞİŞTİRECEĞİNİZ YER:
+//     Vercel deploy sonrası aldığınız URL
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const API_URL = "https://dentech-chat-proxy.vercel.app/api/chat";
+// örnek: "https://dentech-chat-XXXX.vercel.app/api/chat"
 
 let history = [];
 let busy = false;
@@ -224,14 +236,7 @@ input.addEventListener('input', () => {
 input.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (!sendBtn.disabled) doSend(); }
 });
-sendBtn.addEventListener('click', doSend);  
-
-document.querySelectorAll('.dt-qbtn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const msg = btn.getAttribute('data-msg');
-    if (msg) quickSend(msg);
-  });
-});
+sendBtn.addEventListener('click', doSend);
 
 function quickSend(text) {
   document.querySelectorAll('.dt-qbtn').forEach(b => b.disabled = true);
@@ -274,13 +279,59 @@ function removeTyping() { const e = document.getElementById('dt-typing'); if (e)
 
 function fmt(text) {
   let t = esc(text);
-  t = t.replace(/(https:\/\/wa\.me\/[^\s<]+)/g,
-    '<a href="$1" class="wa-l" target="_blank" rel="noopener">📲 WhatsApp\'a Yaz</a>');
-  t = t.replace(/(https:\/\/instagram\.com\/[^\s<]+)/g,
-    '<a href="$1" class="ig-l" target="_blank" rel="noopener">📸 Instagram\'da Ulaş</a>');
+  const placeholders = [];
+  const hold = (html) => {
+    const key = `__DT_LINK_${placeholders.length}__`;
+    placeholders.push([key, html]);
+    return key;
+  };
+
+  // Markdown links: [Etiket](https://...)
+  t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (_, label, url) => {
+    return hold(linkHtml(label, url));
+  });
+
+  // Raw URLs fallback
+  t = t.replace(/(https?:\/\/[^\s<]+)/g, (url) => {
+    let clean = url;
+    let suffix = '';
+    while (/[.,!?)]$/.test(clean)) {
+      suffix = clean.slice(-1) + suffix;
+      clean = clean.slice(0, -1);
+    }
+    return hold(linkHtml(defaultLabel(clean), clean)) + suffix;
+  });
+
   t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   t = t.replace(/\n/g, '<br>');
+  placeholders.forEach(([key, html]) => { t = t.replaceAll(key, html); });
   return t;
+}
+
+function linkHtml(label, url) {
+  const safeUrl = escAttr(url);
+  const safeLabel = label.replace(/&amp;/g, '&');
+  if (url.includes('wa.me')) {
+    return `<a href="${safeUrl}" class="wa-l" target="_blank" rel="noopener">📲 WhatsApp'a Yaz</a>`;
+  }
+  if (url.includes('instagram.com')) {
+    return `<a href="${safeUrl}" class="ig-l" target="_blank" rel="noopener">📸 Instagram'da Ulaş</a>`;
+  }
+  if (url.includes('dentechmedikal.com')) {
+    return `<a href="${safeUrl}" class="dt-linkbtn" target="_blank" rel="noopener">${safeLabel || 'Ürün sayfasına git'}</a>`;
+  }
+  return `<a href="${safeUrl}" class="dt-textlink" target="_blank" rel="noopener">${safeLabel || safeUrl}</a>`;
+}
+
+function defaultLabel(url) {
+  if (url.includes('dentechmedikal.com')) return 'Ürün sayfasına git';
+  if (url.includes('wa.me')) return "WhatsApp'a Yaz";
+  if (url.includes('instagram.com')) return "Instagram'da Ulaş";
+  return url;
+}
+
+function escAttr(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 function esc(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
