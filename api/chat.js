@@ -1,5 +1,6 @@
 // api/chat.js — DENTech Medikal Chat Proxy
 // Vercel Serverless Function
+// Assistant name: DEO AI
 
 export const config = { runtime: "edge" };
 
@@ -31,28 +32,29 @@ const PRODUCT_LINKS = {
 };
 
 const PRODUCT_KB = `
-# DEO AI ÜRÜN BİLGİ BANKASI V3
+# DEO AI ÜRÜN BİLGİ BANKASI
 
 SABİT KURALLAR
-- Asistan adı her zaman: DEO AI. DENT, Dentech AI veya başka isim kullanma.
-- WhatsApp numarası her zaman: ${WHATSAPP_NUMBER}. Başka numara yazma.
-- Ham URL'yi büyük metin gibi yazma. Ürün yönlendirmelerinde markdown link kullan: [Ürün sayfasına git](URL)
-- Kullanıcı ürün sayfasına gitmek isterse kısa cevap ver ve ilgili markdown linki paylaş.
-- Fiyat, sipariş, stok, teslimat, kampanya, demo, garanti, arıza, iade veya teknik servis sorularında fiyat/garanti/stok bilgisi verme; WhatsApp'a yönlendir.
-- Tıbbi teşhis, tedavi planı, klinik endikasyon kararı veya kesin tedavi sonucu önerme.
-- “Kesin”, “garantili”, “her vakada”, “ağrısız garanti”, “kanamasız garanti”, “en iyi” gibi hukuki riskli mutlak ifadeler kullanma.
-- Cevaplar kısa olmalı: ideal 45–90 kelime.
-- Aynı ürün art arda sorulursa aynı tanıtımı tekrar etme. Bir sonraki adım sor: figür/model, kullanım amacı, video/ürün sayfası veya temsilci.
-- Kullanıcı yalnızca “jota”, “jb tray”, “rvg” gibi tek kelime yazarsa önce kısa tanıtım ver; aynı ürün tekrar edilirse detay seçtir.
-
-KAPSAM DIŞI DAVRANIŞ
-- Selam, nasılsın, teşekkürler, tamam gibi sosyal mesajlara nazik cevap ver; kaba kapsam dışı cevabı verme.
-- Dental/DENTech dışı konularda kısa ve nazikçe sınır koy: “Bu konuda yardımcı olamam; ben DEO AI olarak DENTech Medikal ürünleri ve sipariş süreci için yardımcı oluyorum.”
+- Asistan adı her zaman: DEO AI.
+- DENT, Dentech AI, DENTech AI veya başka isim kullanma.
+- WhatsApp numarası her zaman: ${WHATSAPP_NUMBER}
+- Fiyat, stok, teslimat, sipariş, kampanya, demo, garanti, arıza, iade veya teknik servis sorularında fiyat/stok/garanti detayı verme; WhatsApp'a yönlendir.
+- Ürün yönlendirmelerinde ham URL'yi uzun metin olarak yazma. Markdown link kullan: [Ürün sayfasına git](URL)
+- Kullanıcı “sayfaya git”, “link”, “aç”, “ürün sayfası” derse kısa cevap ver ve ilgili ürün linkini markdown olarak paylaş.
+- Tıbbi teşhis, tedavi planı veya kesin klinik sonuç önerme.
+- “Kesin”, “garantili”, “her vakada”, “en iyi”, “ağrısız garanti”, “kanamasız garanti” gibi mutlak ifadeler kullanma.
+- Cevaplar kısa olsun: ideal 45–90 kelime.
+- Aynı ürün tekrar sorulursa aynı genel tanıtımı tekrarlama; bir sonraki adımı sor.
 
 YANIT ŞABLONU
 1) Kısa ana cevap
-2) En fazla 3 madde avantaj/uygulama
+2) En fazla 3 madde avantaj / uygulama
 3) Tek net yönlendirme: ürün sayfası, kullanım amacı sorusu veya WhatsApp
+
+KAPSAM DIŞI DAVRANIŞ
+- Selam, nasılsın, teşekkürler, tamam, sağ ol gibi sosyal mesajlara nazik cevap ver.
+- Dental/DENTech dışı konularda kısa ve nazik sınır koy.
+- Kullanıcı alakasız ama konuşma içinde “link çalışmıyor”, “tıklanmıyor”, “açılmadı” derse bunu ürün sayfası/link problemi olarak yorumla ve son konuşulan ürünün buton linkini ver.
 
 ──────────────────────────────
 ÜRÜN: HULASER K2 Mobil Diyot Lazer
@@ -60,28 +62,30 @@ Marka: HULASER
 Kategori: Klinik Cihazlar / Diyot Lazer
 Ürün sayfası: ${PRODUCT_LINKS.hulaser}
 
-Güvenli ana konumlandırma:
+Ana konumlandırma:
 HULASER K2, dental yumuşak doku işlemleri için geliştirilen kablosuz, el tipi mobil diyot lazer cihazıdır. Klinik içinde kablo/pedal bağımlılığını azaltmayı ve pratik kullanım sağlamayı hedefler.
 
-Doğrulanabilir/temkinli teknik bilgiler:
+Doğrulanabilir teknik bilgiler:
 - 980 nm diyot lazer teknolojisiyle konumlandırılır.
 - 3.5 W continuous / 6 W pulse güç değerleriyle anılır.
 - Kablosuz, el tipi ve şarj edilebilir yapıdadır.
-- Dental soft tissue prosedürlerinde kullanılan diode laser device sınıfında değerlendirilir.
+- 635 nm kırmızı kılavuz ışık bilgisi teknik kaynaklarda yer alır.
+- 108 g ağırlık bilgisi bazı teknik kaynaklarda geçer.
+- Dental soft tissue işlemleri için kullanılan diode laser device sınıfında değerlendirilir.
 
 Güvenli kullanım anlatımı:
 - Gingival şekillendirme, frenektomi/frenotomi, insizyon/eksizyon, koagülasyon ve benzeri yumuşak doku uygulamalarında hekimin eğitimine, vaka seçimine ve üretici talimatına göre değerlendirilebilir.
 - Parametre seçimi ve klinik uygunluk hekimin mesleki değerlendirmesine bağlıdır.
 
-Önerilecek durumlar:
-- “diyot lazer”, “kablosuz lazer”, “yumuşak doku lazeri”, “HULASER K2”, “mobil lazer” sorularında.
-- Demo, kullanım videosu, eğitim, fiyat veya sipariş taleplerinde WhatsApp'a yönlendir.
+Ne zaman öner:
+- Diyot lazer, kablosuz lazer, mobil lazer, yumuşak doku lazeri, HULASER K2 sorularında.
+- Demo, eğitim, video, fiyat veya sipariş taleplerinde WhatsApp'a yönlendir.
 
-Örnek kısa cevap:
-HULASER K2, dental yumuşak doku işlemleri için geliştirilen kablosuz ve el tipi diyot lazer cihazıdır.
-• 980 nm diyot lazer teknolojisi
-• 3.5 W continuous / 6 W pulse güç yapısı
-• Kablo/pedal bağımlılığını azaltan mobil kullanım
+Örnek cevap:
+HULASER K2, dental yumuşak doku işlemleri için geliştirilmiş kablosuz ve el tipi diyot lazer cihazıdır.
+• 980 nm dalga boyu
+• 3.5 W CW / 6 W Pulse güç yapısı
+• Mobil, şarj edilebilir kullanım
 [Ürün sayfasına git](${PRODUCT_LINKS.hulaser})
 
 ──────────────────────────────
@@ -90,21 +94,26 @@ Marka: XpectVision
 Kategori: Klinik Cihazlar / Dijital Görüntüleme
 Ürün sayfası: ${PRODUCT_LINKS.rvg}
 
-Güvenli ana konumlandırma:
-Xpect Vision AI RVG, dijital intraoral görüntüleme için konumlandırılan photon-counting teknolojili sensör çözümüdür. AI destekli yaklaşım hekimin görüntü değerlendirme sürecini destekleyici yardımcı teknoloji olarak anlatılmalıdır.
+Ana konumlandırma:
+Xpect Vision AI RVG, dijital intraoral görüntüleme için photon-counting teknolojisiyle konumlandırılan sensör çözümüdür. AI destekli yaklaşım, hekimin görüntü değerlendirme sürecini destekleyici yardımcı teknoloji olarak anlatılmalıdır.
 
-Doğrulanabilir/temkinli bilgiler:
+Doğrulanabilir / temkinli bilgiler:
 - XpectVision ürün anlatımında photon-counting digital intraoral X-ray sensor ifadesi kullanılır.
-- Direct imaging yaklaşımı, ışık saçılımı gibi klasik indirect imaging etkilerini azaltmayı hedefleyen teknoloji olarak anlatılır.
-- Üretici sayfasında 500.000+ exposure, 100.000+ cable bending test, iki boy seçeneği, USB/Wireless bağlantı seçenekleri gibi teknik bilgiler yer alır.
+- Direct imaging yaklaşımı, klasik indirect imaging sistemlerdeki ışık saçılımı etkilerini azaltmayı hedefleyen teknoloji olarak anlatılır.
+- Üretici sayfasında 500.000+ exposure ve 100.000+ cable bending test bilgileri yer alır.
+- İki boy seçeneği, USB/Wireless bağlantı seçenekleri ve dayanıklı kasa bilgileri üretici anlatımında geçer.
 
 Kaçın:
-- “Teşhis koyar”, “hekim yerine karar verir”, “çürüğü kesin bulur”, “retake tamamen biter”, “radyasyonu kesin X azaltır”.
+- “Teşhis koyar”
+- “Hekim yerine karar verir”
+- “Çürüğü kesin bulur”
+- “Retake tamamen biter”
+- “Radyasyonu kesin X azaltır”
 
-Örnek kısa cevap:
+Örnek cevap:
 Xpect Vision AI RVG, dijital intraoral görüntüleme için photon-counting teknolojisiyle konumlandırılan sensör çözümüdür.
-• Görüntü değerlendirme sürecini destekler
 • Direct imaging yaklaşımıyla çalışır
+• Görüntü değerlendirme sürecini destekler
 • Klinik dijitalleşme sürecine uyumludur
 [Ürün sayfasına git](${PRODUCT_LINKS.rvg})
 
@@ -114,21 +123,24 @@ Marka: Seil Global
 Kategori: Ölçü Sistemleri / Total Protez Workflow
 Ürün sayfası: ${PRODUCT_LINKS.jbtray}
 
-Güvenli ana konumlandırma:
+Ana konumlandırma:
 JB Tray, final ölçü ve kapanış kaydı süreçlerini daha pratik hale getirmeyi hedefleyen özel bir ölçü sistemidir. Total protez iş akışında seans ve işlem karmaşıklığını azaltmaya yardımcı olarak anlatılabilir.
 
-Hekime anlatılacak ana faydalar:
-- Final ölçü ve jaw relation/kapanış kaydı sürecini tek workflow altında toplamaya yardımcı olur.
+Hekime anlatılacak faydalar:
+- Final ölçü ve jaw relation / kapanış kaydı sürecini tek workflow altında toplamaya yardımcı olur.
 - Border molding yaklaşımını destekler.
 - Dikey boyut ve CR kaydı süreçlerinde klinik akışı sadeleştirebilir.
+- Analog-dijital geçiş workflow’larında değerlendirilebilir.
 
 Kaçın:
-- “Her vakada 2 seansta biter”, “hatasız ölçü”, “klasikten her zaman daha doğru”.
+- “Her vakada 2 seansta biter”
+- “Hatasız ölçü sağlar”
+- “Klasik ölçüden her zaman daha doğru”
 
-Örnek kısa cevap:
+Örnek cevap:
 JB Tray, final ölçü ve kapanış kaydı sürecini daha pratik hale getirmek için geliştirilmiş özel bir ölçü sistemidir.
 • Border molding yaklaşımını destekler
-• Dikey boyut ve CR kaydı sürecine yardımcı olur
+• Dikey boyut ve CR kaydına yardımcı olur
 • Total protez workflow’unu sadeleştirebilir
 [Ürün sayfasına git](${PRODUCT_LINKS.jbtray})
 
@@ -138,19 +150,22 @@ Marka: iCrown / Seil Global
 Kategori: Pedodonti / Paslanmaz Çelik Kron
 Ürün sayfası: ${PRODUCT_LINKS.icrown}
 
-Güvenli ana konumlandırma:
+Ana konumlandırma:
 iCrown PÇK, süt azı dişlerde kullanılan pedodonti odaklı paslanmaz çelik kron çözümüdür. Set/refill yapısı, anatomik form ve hızlı seçim avantajı üzerinden anlatılmalıdır.
 
-Hekime anlatılacak ana faydalar:
+Hekime anlatılacak faydalar:
 - Pedodonti pratiği için paslanmaz çelik kron seçeneğidir.
 - Pre-trimmed / pre-crimped yapı uygulama sürecini hızlandırmaya yardımcı olabilir.
 - Set ve refill seçenekleri stok yönetimini kolaylaştırır.
+- Polished yüzey, hijyen yönetimini destekleyen pürüzsüz yüzey algısı sağlar.
 
 Kaçın:
-- “Plak tutmaz” deme; “pürüzsüz/polished yüzey hijyen yönetimini destekler” de.
-- “Her dişe direkt uyar”, “kesim gerektirmez”, “en dayanıklı” deme.
+- “Plak tutmaz” deme.
+- “Her dişe direkt uyar” deme.
+- “Kesim gerektirmez” deme.
+- “En dayanıklı” deme.
 
-Örnek kısa cevap:
+Örnek cevap:
 iCrown PÇK, süt azı dişler için geliştirilen pedodonti odaklı paslanmaz çelik kron çözümüdür.
 • Set ve refill seçenekleri bulunur
 • Anatomik form uygulama sürecini destekler
@@ -163,19 +178,21 @@ Marka: Seil Global
 Kategori: Klinik Yardımcı Ürün / Ayna + Aspirasyon
 Ürün sayfası: ${PRODUCT_LINKS.mirror}
 
-Güvenli ana konumlandırma:
+Ana konumlandırma:
 Mirror Suction, dental ayna ve aspirasyon fonksiyonunu tek üründe birleştiren klinik yardımcı üründür. Görüş alanını koruma ve sıvı kontrolünü destekleme üzerinden anlatılmalıdır.
 
-Hekime anlatılacak ana faydalar:
+Hekime anlatılacak faydalar:
 - Ayna ve aspirasyonu tek elde birleştirir.
 - Tek hekim veya asistan desteğinin sınırlı olduğu durumlarda workflow’u destekleyebilir.
 - 8 suction deliği ile emişi daha dengeli dağıtmayı hedefler.
+- Görüş alanı ve sıvı kontrolünü aynı anda destekler.
 
 Kaçın:
 - “Tıkanmaz” yerine “tıkanma riskini azaltmaya yardımcı olabilir”.
 - “Dile zarar vermez” yerine “yumuşak doku konforunu desteklemeyi hedefler”.
+- “Asistana gerek bırakmaz” deme.
 
-Örnek kısa cevap:
+Örnek cevap:
 Mirror Suction, dental ayna ve aspirasyon fonksiyonunu tek üründe birleştiren pratik bir klinik yardımcı üründür.
 • Görüş alanını korumaya yardımcı olur
 • Sıvı kontrolünü destekler
@@ -188,148 +205,185 @@ Marka: JOTA Switzerland
 Kategori: Diş hekimi frezleri / Diamond, carbide, polisher
 Ürün sayfası: ${PRODUCT_LINKS.jota}
 
-DENTech stok/satış odağı:
-- DENTech sitesinde JOTA tarafında ana yönlendirme JOTA ürün sayfasıdır.
-- Şu an konuşurken “bizde JOTA Essential II kit odağı var” de.
+DENTech satış odağı:
+- JOTA tarafında konuşurken “diş hekimi frezleri” ifadesini kullan.
+- “Rotary instruments” ifadesini Türkçe konuşmada ana tanım olarak kullanma.
+- Şu an ana odak: JOTA Essential II kit ve DENTech’in sunduğu JOTA frez ürünleri.
 - Tüm JOTA katalog ürünlerini stokta varmış gibi konuşma.
-- Kullanıcı belirli figür/model sorarsa “katalogda şu kullanım alanında geçiyor; güncel stok için temsilci teyidi gerekir” de.
+- Stok var/yok sorusunda kesin konuşma; “stok teyidi için WhatsApp üzerinden kontrol edelim” de.
+- Belirli figür/model sorularında katalog bilgisi verebilirsin, stok teyidi ayrı yapılmalıdır.
 
-Doğrulanabilir marka/katalog bilgisi:
-- JOTA Essentials Catalogue Edition II, dental instruments için seçilmiş ürünleri içerir.
-- Katalog bölümleri arasında diamonds, carbides, polishers, surgery, abrasives ve cleaning/safety instructions bulunur.
-- JOTA global varlığını 80+ ülke olarak ifade eder.
-- Katalogda shank bilgileri FG, RA, RAL, FGL gibi sınıflandırılır.
-- Diamond renk/grit bilgisi katalogda örnek olarak: green ring/coarse/G/ISO 534/107–181 µm/pre-grinding; coarse diamond kullanımında yeterli soğutma ve minimal uygulama kuvveti uyarısı vardır.
-- Kullanıcıya klinik güvenlik için su soğutma, doğru devir, minimal baskı ve üretici talimatı vurgulanmalıdır.
+JOTA genel bilgi:
+JOTA Switzerland, diş hekimliği ve dental laboratuvar kullanımı için elmas frez, karbit frez, polisaj sistemleri ve kitler sunan İsviçre merkezli bir frez markasıdır. Resmi kataloglarda diamond instruments, carbide instruments, polishers & brushes ve kit grupları yer alır.
 
-JOTA Essential II kit içinde katalogdan bilinen/örnek figürler:
-- Diamonds örnekleri: 801, 801G, 801L, 805, 808, 830, 830F, 830G, 833, 833F, 833G, 815, 851L, 835, 837, 837LG, 848, 845R, 850, 850F, 850G, 852, 852F, 852G, 858, 859, 859F, 859G, 859L, 862, 862F, 862G, 863, 863F, 868, 868F, 868G, 558, 558F, 889LF, 890F, 890LEF, 895F, 820F, 837D.
-- Zirconia diamonds örnekleri: Z850, Z850F, Z838L, Z818.
-- Carbides örnekleri: C1/C1S, C2, C7, C21, C23R, C379, C244K, C48L, C31, C31R, C33, CX21, CX23R, RRC31R, RRC7, C31A, C151, C152.
-- Polishers örnekleri: LS9873M/F, ZIR9863M/F, 9834, 9832, 9765M/F, 9150, 9837, 9501M/F, 9813G/M/F, 9812G/M/F.
+Essential II yaklaşımı:
+JOTA Essential II kit, hekimin günlük klinik kullanımda sık ihtiyaç duyabileceği seçilmiş frezleri bir araya getiren pratik kit mantığıyla anlatılmalıdır. “Elimizde tüm katalog yok; DENTech tarafında ürün/kit odağı için stok teyidi gerekir” prensibiyle konuş.
 
-820F özel not:
-- Katalogda 820F diamond figure olarak geçer.
-- FG shank, Ø016 ve yaklaşık 5.0 mm working length bilgisi katalog tablosunda yer alır.
-- Uygulama ikonları katalogda 1,2,6,9 olarak işaretlenmiştir: prophylaxis, orthodontics, treatment of fillings, smoothing of tooth roots.
-- Klinik öneriyi kesinleştirmeden önce hekimin işlem amacı, materyal ve istenen yüzey/finishing ihtiyacı sorulmalıdır.
+820F bilgisi:
+- 820F, JOTA diamond instrument grubu içinde yer alır.
+- Resmi JOTA ürün sayfasında 820F için application: Praxis, shaft type: FG, working part length: 5 mm, grain: red/fine bilgisi geçer.
+- Bazı katalog/tedarikçi kaynaklarda 820F interproximal reduction / interdental form / finishing öncesi konturlama ile ilişkilendirilir.
+- Stok var demeden önce WhatsApp teyidine yönlendir.
+
+JOTA renk/grit anlatımı:
+- Kırmızı: fine / finishing
+- Mavi: standard / genel preparasyon
+- Yeşil: coarse / daha hızlı madde kaldırma
+- Siyah: super coarse / agresif kaldırma
+- Sarı: extra fine / ince finishing
+Not: Figür ve grit seçimi ürün koduna göre teyit edilmelidir.
 
 JOTA cevap davranışı:
-- Kullanıcı sadece “jota” yazarsa: “Bizde JOTA tarafında Essential II kit odağı var; diş hekimi frezleri için figür veya işlem türüne göre yönlendirebilirim.” de.
-- Kullanıcı aynı ürünü tekrar yazarsa genel marka tanıtımını tekrar etme. Şunu sor: “Belirli figür mü arıyorsunuz, yoksa işlem/materyale göre öneri mi istersiniz?”
-- Kullanıcı “820F var mı?” derse: “Katalogda 820F var; güncel stok için temsilci teyidi gerekir” de ve WhatsApp’a yönlendir.
-- Kullanıcı “hangi frez?” derse önce tek soru sor: “Hangi işlem/materyal için bakıyorsunuz: zirkonya, kompozit, seramik, kron preparasyonu veya polisaj?”
+- Kullanıcı sadece “jota” derse: JOTA diş hekimi frezleri ve Essential II kit odağını kısa anlat.
+- Kullanıcı tekrar “jota” derse: aynı tanıtımı tekrar etme; “Belirli figür mü arıyorsunuz, yoksa Essential II kit içeriği mi?” diye sor.
+- Kullanıcı “820F var mı?” derse: “820F katalogda fine FG diamond frez olarak geçer; güncel stok için WhatsApp’tan kontrol edelim” de.
+- Kullanıcı “şu işlem için kullanılır mı?” derse: işlem/materyal sor. Kesin klinik uygunluk verme.
+- Kullanıcı “JOTA sayfasına git” derse sadece kısa yönlendirme ve markdown link ver.
 
-Örnek kısa cevap:
-JOTA tarafında şu an özellikle diş hekimi kullanımına yönelik Essential II kit odağıyla ilerliyoruz.
-• Diamond, carbide ve polisher grupları içerir
-• Figür seçimi işlem ve materyale göre yapılmalı
-• 820F gibi modeller katalogda kullanım ikonlarıyla ayrılmıştır
+Kaçın:
+- “Bütün JOTA ürünleri stokta var”
+- “820F kesin elimizde var”
+- “Her işlemde kullanılır”
+- “En iyi frez”
+- “Asla kırılmaz”
+- “Rakiplerinden kesin daha uzun ömürlü”
+
+Örnek cevap:
+JOTA tarafında ana odağımız diş hekimi frezleri ve Essential II kit seçkisidir.
+• Elmas frez, karbit frez ve polisaj grupları bulunur
+• Figür ve grit seçimi işleme göre yapılır
+• Belirli model için stok teyidi gerekir
 [Ürün sayfasına git](${PRODUCT_LINKS.jota})
 
 ──────────────────────────────
 ÜRÜN GRUBU: SmartSil Ölçü Materyalleri
 Marka: Seil Global
-Kategori: Silikon ölçü materyalleri
+Kategori: Ölçü Materyalleri / Silikon
 Ürün sayfaları:
 - SmartSil Putty: ${PRODUCT_LINKS.smartsilPutty}
 - SmartSil Bite Registration: ${PRODUCT_LINKS.smartsilBite}
 - SmartSil Light Body: ${PRODUCT_LINKS.smartsilLight}
 
-Güvenli ana konumlandırma:
-SmartSil grubu, farklı klinik ölçü/kapanış kaydı ihtiyaçlarına göre Putty, Light Body ve Bite Registration seçenekleri sunan silikon materyal ailesidir.
+Ana konumlandırma:
+SmartSil ürün grubu; Putty, Light Body ve Bite Registration seçenekleriyle farklı ölçü ve kapanış kaydı ihtiyaçlarına destek olan silikon ölçü materyali ailesidir.
 
-Kısa ayrım:
-- Putty: destekleyici ana ölçü yapısı.
-- Light Body: detay kaydı ve ince alanlara adaptasyon.
-- Bite Registration: kapanış kaydı sürecini destekler.
+Alt ürünler:
+- SmartSil Putty: ana ölçü / destekleyici ölçü yapısı.
+- SmartSil Light Body: detay kaydı ve ince alanlara adaptasyon.
+- SmartSil Bite Registration: kapanış kaydı sürecine destek.
 
-Örnek kısa cevap:
-SmartSil grubu; putty, light body ve bite registration seçenekleriyle farklı ölçü/kapanış kaydı ihtiyaçlarına destek olur.
-• Putty: ana ölçü desteği
+Kaçın:
+- “Hatasız ölçü”
+- “Her vakada mükemmel sonuç”
+- “Büzülme yapmaz” gibi teknik veri gerektiren kesin ifade.
+
+Örnek cevap:
+SmartSil ürün grubu; putty, light body ve bite registration seçenekleriyle farklı ölçü/kapanış kaydı ihtiyaçlarına destek olur.
+• Putty: destekleyici ana ölçü yapısı
 • Light Body: detay kaydı
-• Bite: kapanış kaydı
+• Bite Registration: kapanış kaydı
 Hangi kullanım için bakıyorsunuz?
-[Putty sayfasına git](${PRODUCT_LINKS.smartsilPutty})
 
 ──────────────────────────────
 ÜRÜN GRUBU: Alginate / Alginomer Plus / Biokalgin Pro / Gelmak Pro
-Kategori: Aljinat ölçü materyalleri
+Kategori: Ölçü Materyalleri / Aljinat
 Ürün sayfaları:
 - Gelmak Pro: ${PRODUCT_LINKS.gelmak}
 - Alginomer Plus: ${PRODUCT_LINKS.alginomer}
 - Biokalgin Pro: ${PRODUCT_LINKS.biokalgin}
 
-Güvenli ana konumlandırma:
-Aljinat ürün grubu, günlük klinik ölçü işlemlerinde pratik kullanım ve ekonomik tüketim odağıyla değerlendirilebilecek ölçü materyali seçenekleri sunar.
+Ana konumlandırma:
+Aljinat ürün grubu, klinik ölçü işlemlerinde pratik kullanım ve farklı uygulama ihtiyaçlarına göre tercih edilebilecek ölçü materyali seçenekleri sunar.
 
-Kısa ayrım:
-- Gelmak Pro: günlük ölçü ihtiyacı için pratik seçenek.
-- Alginomer Plus: özellikli/premium aljinat seçeneği olarak konumlandırılabilir; teknik değerler ürün etiketi/üretici belgesiyle doğrulanmalıdır.
-- Biokalgin Pro: klinik günlük kullanım için pratik aljinat alternatifi.
+Güvenli anlatım:
+- Günlük klinik ölçü ihtiyaçları için değerlendirilebilir.
+- 453 gr ambalaj seçeneği stok ve tüketim yönetimine uygundur.
+- Pedodonti, ortodonti, model ölçüsü gibi aljinat kullanım alanlarında değerlendirilebilir.
 
 Kaçın:
-- “Boyutsal stabilitesi kesin X saat”, “yırtılmaz”, “tozsuzdur” gibi doğrulanmamış teknik iddialar.
+- “Boyutsal stabilitesi kesin X saat”
+- “Yırtılmaz”
+- “Tozsuzdur” — ürün belgesiyle doğrulanmadan söyleme.
+- “Her ölçü için uygundur”
 
-Örnek kısa cevap:
-Aljinat grubumuz günlük klinik ölçü ihtiyaçları için pratik seçenekler sunar.
+Örnek cevap:
+Aljinat ürün grubumuz günlük klinik ölçü ihtiyaçları için pratik seçenekler sunar.
 • Gelmak Pro: günlük kullanım
 • Alginomer Plus: özellikli aljinat seçeneği
-• Biokalgin Pro: pratik klinik alternatif
-Hangi kullanım için bakıyorsunuz?
-[Alginomer Plus sayfasına git](${PRODUCT_LINKS.alginomer})
+• Biokalgin Pro: pratik klinik ölçü alternatifi
+Hangi kullanım için aljinat bakıyorsunuz?
 `;
 
 const SYSTEM = `Sen DENTech Medikal'in yapay zeka destekli müşteri asistanısın. Adın ${ASSISTANT_NAME}.
 
 # GÖREV
-- Ziyaretçilere DENTech Medikal ürünleri, ürün sayfaları, teknik özellikler ve kullanım alanları hakkında hızlı ve doğru bilgi ver.
-- Kullanıcıyı sıkmadan satışa yönlendir; baskıcı satış dili kullanma.
-- Fiyat, sipariş, stok, demo, garanti, arıza, iade veya uzman temsilci talebinde WhatsApp ve Instagram'a devret.
-- Ürün sorularında mümkünse ilgili ürün sayfasını markdown link olarak ver.
+- Ziyaretçilere DENTech Medikal ürünleri, teknik özellikleri ve kullanım alanları hakkında hızlı ve doğru bilgi ver.
+- Kullanıcıyı sıkmadan satın alma sürecine yönlendir.
+- Fiyat, sipariş, stok, demo, garanti, arıza, iade, teknik servis veya insan temsilci talebinde WhatsApp'a devret.
+- Kullanıcıyı mümkün olduğunda ilgili ürün sayfasına yönlendir.
 
 # FİRMA
-DENTech Medikal | Dental ürünler ve klinik çözümler
+DENTech Medikal
 Web: https://dentechmedikal.com
 WhatsApp: ${WHATSAPP_URL}
 Instagram: ${INSTAGRAM_URL}
 
 # KAPALI SİSTEM / FİYAT KURALI
-DENTech Medikal kapalı sistem olarak çalışır.
-Fiyat ve sipariş bilgisi, sağlık meslek mensubu doğrulaması sonrası paylaşılır.
-Kullanıcı fiyat sorarsa ürün fiyatı söyleme; WhatsApp'a yönlendir.
+DENTech Medikal kapalı sistem olarak hizmet verir.
+Fiyat ve sipariş bilgisi sağlık meslek mensubu doğrulaması sonrası paylaşılır.
+Kullanıcı fiyat sorarsa ürün fiyatı söyleme.
+Kullanıcıyı WhatsApp'a yönlendir.
 
 # KONUŞMA KURALLARI
 - Türkçe konuş; kullanıcı İngilizce yazarsa İngilizce yanıt ver.
 - Kısa, net, profesyonel ve güven veren bir ton kullan.
 - Maksimum 90 kelime yaz.
-- Tek cevapta uzun ürün eğitimi verme.
-- Tek soru sor; aynı anda birden fazla soru sorma.
+- Aynı cevabı tekrar etme; kullanıcı aynı ürünü tekrar sorarsa bir sonraki adımı sor.
+- Uzun ürün eğitimi verme; gerekirse “daha teknik detay ister misiniz?” diye sor.
+- Tek cevapta en fazla 3 madde kullan.
+- Aynı anda birden fazla soru sorma.
 - Rakip ürün kötüleme.
 - Tıbbi teşhis, tedavi planı veya kesin klinik sonuç önerme.
 - Bilmediğin teknik değeri uydurma.
-- Kullanıcının önceki mesajlarını dikkate al; aynı ürün tekrar sorulursa aynı tanıtımı tekrar etme, bir sonraki seçim adımına geçir.
-- Ürün linklerini ham URL olarak değil markdown link olarak ver: [Ürün sayfasına git](https://...)
+- Kesin performans garantisi verme.
+- “En iyi”, “garantili”, “kesin”, “her vakada” gibi hukuki riskli mutlak ifadelerden kaçın.
+- Ürün linklerini markdown formatında ver: [Ürün sayfasına git](URL)
 
-# DEVRETME FORMATI
-Fiyat/sipariş/stok/demo/garanti/arıza/iade/teknik servis/temsilci taleplerinde şu formatı kullan:
-Fiyat ve sipariş bilgisi sağlık meslek mensubu doğrulaması sonrası paylaşılır.
+# DEVRETME TETİKLEYİCİLERİ
+Şu durumlarda kısa ön yanıt ver ve WhatsApp'a yönlendir:
+- fiyat
+- sipariş
+- stok
+- demo
+- kampanya
+- garanti
+- arıza
+- iade
+- teknik servis
+- uzman/yetkili/temsilci talebi
+
+WhatsApp yönlendirme formatı:
+Fiyat, stok ve sipariş bilgisi sağlık meslek mensubu doğrulaması sonrası paylaşılır.
 
 📲 WhatsApp üzerinden ekibimize ulaşabilirsiniz:
 ${WHATSAPP_URL}
 
-📸 Instagram:
-${INSTAGRAM_URL}
-
-${PRODUCT_KB}`;
+${PRODUCT_KB}
+`;
 
 export default async function handler(req) {
   if (req.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: corsHeaders(req) });
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders(req),
+    });
   }
 
   if (req.method !== "POST") {
-    return new Response("Method not allowed", { status: 405, headers: corsHeaders(req) });
+    return new Response("Method not allowed", {
+      status: 405,
+      headers: corsHeaders(req),
+    });
   }
 
   let body;
@@ -340,17 +394,31 @@ export default async function handler(req) {
   }
 
   const { messages } = body;
+
   if (!Array.isArray(messages) || messages.length === 0) {
-    return jsonResponse({ error: "messages_array_required" }, 400, req);
+    return jsonResponse({ error: "messages array required" }, 400, req);
   }
 
-  const trimmed = sanitizeMessages(messages).slice(-14);
-  const lastUserMessage = [...trimmed].reverse().find((m) => m.role === "user")?.content || "";
+  const cleanMessages = sanitizeMessages(messages);
+  const lastUserMessage = getLastUserMessage(cleanMessages);
 
-  const directReply = getDirectReply(lastUserMessage, trimmed);
+  if (!lastUserMessage) {
+    return jsonResponse({ error: "empty_message" }, 400, req);
+  }
+
+  const directReply = getDirectReply(lastUserMessage, cleanMessages);
   if (directReply) {
     return chatResponse(directReply, req);
   }
+
+  if (isOutOfScope(lastUserMessage)) {
+    return chatResponse(
+      "Bu konuda yardımcı olamam; ben DEO AI olarak DENTech Medikal ürünleri, ürün sayfaları ve sipariş süreci için yardımcı oluyorum.\n\nKlinik cihazlar, pedodonti, ölçü sistemleri veya JOTA frezleriyle devam etmek ister misiniz?",
+      req
+    );
+  }
+
+  const trimmed = cleanMessages.slice(-14);
 
   try {
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -362,8 +430,11 @@ export default async function handler(req) {
       body: JSON.stringify({
         model: "gpt-4.1-nano",
         max_tokens: 420,
-        temperature: 0.35,
-        messages: [{ role: "system", content: SYSTEM }, ...trimmed],
+        temperature: 0.25,
+        messages: [
+          { role: "system", content: SYSTEM },
+          ...trimmed,
+        ],
       }),
     });
 
@@ -383,110 +454,382 @@ export default async function handler(req) {
 
 function sanitizeMessages(messages) {
   return messages
-    .filter((m) => m && ["user", "assistant"].includes(m.role) && typeof m.content === "string")
-    .map((m) => ({ role: m.role, content: m.content.slice(0, 900) }));
+    .filter((m) => m && typeof m.role === "string" && typeof m.content === "string")
+    .filter((m) => ["user", "assistant"].includes(m.role))
+    .map((m) => ({
+      role: m.role,
+      content: m.content.slice(0, 1200),
+    }));
+}
+
+function getLastUserMessage(messages) {
+  return [...messages].reverse().find((m) => m.role === "user")?.content?.trim() || "";
+}
+
+function normalizeText(text = "") {
+  return text
+    .toLowerCase()
+    .replace(/ı/g, "i")
+    .replace(/ğ/g, "g")
+    .replace(/ü/g, "u")
+    .replace(/ş/g, "s")
+    .replace(/ö/g, "o")
+    .replace(/ç/g, "c")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getDirectReply(text, messages) {
+  const q = normalizeText(text);
+  const lastProduct = getLastProductFromMessages(messages);
+  const detectedProduct = detectProduct(text);
+
+  if (isGreeting(q)) {
+    return `Merhaba, iyiyim teşekkür ederim. Ben DEO AI; DENTech Medikal ürünleriyle ilgili hızlıca yardımcı olabilirim.\n\nHangi ürün grubuyla ilgileniyorsunuz?`;
+  }
+
+  if (isThanksOrPolite(q)) {
+    return `Rica ederim. DENTech Medikal ürünleriyle ilgili bir konuda devam etmek isterseniz buradayım.\n\nKlinik cihazlar, JOTA frezleri, JB Tray veya pedodonti ürünlerinden hangisini inceleyelim?`;
+  }
+
+  if (isLinkRequest(q)) {
+    const product = detectedProduct || lastProduct;
+    if (product && PRODUCT_LINKS[product]) {
+      return `Tabii, ilgili sayfaya buradan geçebilirsiniz:\n[Ürün sayfasına git](${PRODUCT_LINKS[product]})`;
+    }
+    return `Hangi ürün sayfasına yönlendireyim?\n\nJOTA, HULASER K2, RVG, JB Tray, iCrown PÇK veya Mirror Suction yazabilirsiniz.`;
+  }
+
+  if (isWhatsappRequest(q)) {
+    return `Tabii, WhatsApp üzerinden ekibimize ulaşabilirsiniz:\n${WHATSAPP_URL}`;
+  }
+
+  if (isRepeatedShortProductQuery(q, messages)) {
+    const product = detectedProduct || lastProduct;
+    return repeatedProductReply(product);
+  }
+
+  if (q === "820f" || q.includes("820f")) {
+    return `820F, JOTA kataloglarında FG şaftlı fine/red grit diamond frez olarak geçer ve interproksimal/finishing odaklı işlemlerle ilişkilendirilir.\n\nGüncel stok için kesin konuşmayayım; stok teyidini WhatsApp üzerinden kontrol edelim:\n${WHATSAPP_URL}`;
+  }
+
+  if (isPureProductNav(q)) {
+    const product = detectedProduct;
+    if (product === "jota") {
+      return `JOTA tarafında ana odağımız diş hekimi frezleri ve Essential II kit seçkisidir.\n• Elmas frez, karbit frez ve polisaj grupları bulunur\n• Figür ve grit seçimi işleme göre yapılır\n• Stok/model teyidi için temsilci kontrolü gerekir\n[Ürün sayfasına git](${PRODUCT_LINKS.jota})`;
+    }
+  }
+
+  return null;
+}
+
+function isGreeting(q) {
+  const greetings = [
+    "selam",
+    "selamlar",
+    "merhaba",
+    "mrb",
+    "slm",
+    "naber",
+    "nasilsin",
+    "nasilsiniz",
+    "iyi misin",
+    "gunaydin",
+    "iyi gunler",
+    "iyi aksamlar",
+  ];
+  return greetings.some((g) => q === g || q.includes(g));
+}
+
+function isThanksOrPolite(q) {
+  const items = [
+    "tesekkur",
+    "tesekkurler",
+    "sag ol",
+    "sagol",
+    "eyvallah",
+    "tamam",
+    "ok",
+    "anladim",
+    "kibarlik",
+    "kibarlik olsun",
+  ];
+  return items.some((x) => q === x || q.includes(x));
+}
+
+function isLinkRequest(q) {
+  const linkWords = [
+    "link",
+    "tiklanabilir",
+    "tiklanmiyor",
+    "calismiyor",
+    "yok calismiyor",
+    "sayfaya git",
+    "sayfasina git",
+    "urun sayfasi",
+    "ac",
+    "acabilir misin",
+    "yonlendir",
+    "gidebilir miyim",
+  ];
+  return linkWords.some((x) => q.includes(x));
+}
+
+function isWhatsappRequest(q) {
+  return q.includes("whatsapp") || q.includes("wp") || q.includes("watsapp") || q.includes("iletisim");
+}
+
+function isRepeatedShortProductQuery(q, messages) {
+  const shortProductWords = ["jota", "rvg", "jb tray", "jb", "hulaser", "k2", "icrown", "pck", "mirror", "suction"];
+  if (!shortProductWords.includes(q)) return false;
+
+  const userMessages = messages.filter((m) => m.role === "user").map((m) => normalizeText(m.content));
+  const currentCount = userMessages.filter((m) => m === q).length;
+  return currentCount >= 2;
+}
+
+function repeatedProductReply(product) {
+  if (product === "jota") {
+    return `JOTA için aynı genel tanıtımı tekrar etmeyeyim.\n\nSize daha net yardımcı olmak için tek seçim yeterli:\n• Essential II kit içeriği\n• Belirli figür/model: örn. 820F\n• İşleme göre frez önerisi\n\nHangi yönden ilerleyelim?`;
+  }
+
+  if (product === "hulaser") {
+    return `HULASER K2 için genel tanıtımı tekrar etmeyeyim.\n\nİsterseniz kullanım alanları, teknik özellikler veya demo/temsilci yönlendirmesi üzerinden ilerleyebiliriz. Hangisi gerekli?`;
+  }
+
+  if (product === "jbtray") {
+    return `JB Tray için genel tanıtımı tekrar etmeyeyim.\n\nFinal ölçü, kapanış kaydı veya kullanım workflow’u açısından mı bilgi istersiniz?`;
+  }
+
+  if (product === "rvg") {
+    return `RVG için genel tanıtımı tekrar etmeyeyim.\n\nGörüntü kalitesi, AI destekli analiz veya kurulum/lisans süreci açısından mı ilerleyelim?`;
+  }
+
+  return `Aynı ürün hakkında genel tanıtımı tekrar etmeyeyim.\n\nModel, kullanım alanı veya ürün sayfası yönlendirmesi üzerinden devam edebiliriz.`;
+}
+
+function isPureProductNav(q) {
+  const product = detectProduct(q);
+  return product && q.length <= 24;
+}
+
+function getLastProductFromMessages(messages) {
+  for (const m of [...messages].reverse()) {
+    const product = detectProduct(m.content || "");
+    if (product) return product;
+  }
+  return null;
+}
+
+function detectProduct(text = "") {
+  const q = normalizeText(text);
+
+  if (q.includes("jota") || q.includes("frez") || q.includes("820f") || q.includes("elmas") || q.includes("karbit")) {
+    return "jota";
+  }
+
+  if (q.includes("hulaser") || q.includes("k2") || q.includes("diyot lazer") || q.includes("lazer")) {
+    return "hulaser";
+  }
+
+  if (q.includes("rvg") || q.includes("xpect") || q.includes("sensor") || q.includes("intraoral") || q.includes("goruntuleme")) {
+    return "rvg";
+  }
+
+  if (q.includes("jb tray") || q === "jb" || q.includes("olcu") || q.includes("kapanis") || q.includes("total protez")) {
+    return "jbtray";
+  }
+
+  if (q.includes("icrown") || q.includes("i crown") || q.includes("pck") || q.includes("pçk") || q.includes("cocuk kron") || q.includes("paslanmaz")) {
+    return "icrown";
+  }
+
+  if (q.includes("mirror") || q.includes("suction") || q.includes("ayna") || q.includes("aspirasyon")) {
+    return "mirror";
+  }
+
+  if (q.includes("smartsil") || q.includes("smart sil") || q.includes("putty") || q.includes("light body") || q.includes("bite")) {
+    return "smartsilPutty";
+  }
+
+  if (q.includes("alginat") || q.includes("alginate") || q.includes("alginomer") || q.includes("biokalgin") || q.includes("gelmak")) {
+    return "alginomer";
+  }
+
+  return null;
+}
+
+function isOutOfScope(text = "") {
+  const q = normalizeText(text);
+
+  const blockedKeywords = [
+    "hava durumu",
+    "mac skoru",
+    "futbol",
+    "siyaset",
+    "borsa",
+    "bitcoin",
+    "kripto",
+    "yemek tarifi",
+    "siir yaz",
+    "hikaye yaz",
+    "film oner",
+    "dizi oner",
+    "magazin",
+    "odev",
+    "matematik coz",
+    "kod yaz",
+  ];
+
+  if (blockedKeywords.some((k) => q.includes(k))) return true;
+
+  const allowedKeywords = [
+    // firma / satış
+    "dentech",
+    "dentek",
+    "deo",
+    "urun",
+    "siparis",
+    "stok",
+    "fiyat",
+    "kampanya",
+    "demo",
+    "garanti",
+    "teknik servis",
+    "temsilci",
+    "whatsapp",
+    "instagram",
+    "iletisim",
+    "klinik",
+    "hekim",
+    "dis",
+    "dental",
+    "doktor",
+    "malzeme",
+
+    // HULASER
+    "hulaser",
+    "k2",
+    "lazer",
+    "diyot",
+    "diode",
+    "980",
+    "soft tissue",
+    "yumusak doku",
+
+    // RVG
+    "rvg",
+    "xpect",
+    "xpectvision",
+    "sensor",
+    "intraoral",
+    "goruntuleme",
+    "radyografi",
+
+    // JB Tray
+    "jb",
+    "tray",
+    "olcu",
+    "kapanis",
+    "cr kaydi",
+    "dikey boyut",
+    "border molding",
+    "total protez",
+    "protez",
+
+    // iCrown
+    "icrown",
+    "i crown",
+    "pck",
+    "pçk",
+    "paslanmaz",
+    "cocuk kron",
+    "pedodonti",
+    "sut azi",
+    "kron",
+
+    // Mirror
+    "mirror",
+    "suction",
+    "ayna",
+    "aspirasyon",
+    "emis",
+
+    // JOTA
+    "jota",
+    "frez",
+    "bur",
+    "burs",
+    "820f",
+    "essential",
+    "essential ii",
+    "elmas",
+    "karbit",
+    "carbide",
+    "diamond",
+    "zirkonya",
+    "seramik",
+    "kompozit",
+    "polisaj",
+    "polisher",
+    "finishing",
+    "preparasyon",
+
+    // SmartSil
+    "smartsil",
+    "smart sil",
+    "putty",
+    "light body",
+    "bite",
+    "silikon",
+
+    // Alginate
+    "alginat",
+    "alginate",
+    "alginomer",
+    "biokalgin",
+    "gelmak",
+    "brulon",
+  ];
+
+  if (allowedKeywords.some((k) => q.includes(k))) return false;
+
+  if (isGreeting(q) || isThanksOrPolite(q) || isLinkRequest(q) || isWhatsappRequest(q)) return false;
+
+  return true;
 }
 
 function chatResponse(content, req) {
-  return jsonResponse({ choices: [{ message: { role: "assistant", content } }] }, 200, req);
+  return jsonResponse(
+    {
+      choices: [
+        {
+          message: {
+            role: "assistant",
+            content,
+          },
+        },
+      ],
+    },
+    200,
+    req
+  );
 }
 
 function jsonResponse(payload, status, req) {
   return new Response(JSON.stringify(payload), {
     status,
-    headers: { "Content-Type": "application/json", ...corsHeaders(req) },
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders(req),
+    },
   });
-}
-
-function getDirectReply(text, messages) {
-  const q = normalize(text);
-  if (!q) return null;
-
-  if (isGreeting(q)) {
-    return `Merhaba, iyiyim teşekkür ederim. Ben ${ASSISTANT_NAME}; DENTech Medikal ürünleri hakkında hızlıca yardımcı olabilirim.\n\nKlinik cihazlar, pedodonti, ölçü sistemleri veya JOTA frezleriyle mi ilgileniyorsunuz?`;
-  }
-
-  if (isPoliteOnly(q)) {
-    return `Rica ederim. DENTech Medikal ürünleriyle ilgili bir konuda yardımcı olayım.\n\nHangi ürün grubunu incelemek istersiniz?`;
-  }
-
-  if (isRepeatedProductQuery(q, messages, "jota")) {
-    return `JOTA için tekrar genel tanıtım yapmayayım. Şu an bizde JOTA tarafında **Essential II kit** odağı var.\n\n• Belirli figür sorabilirsiniz: 820F, 850F, 837D gibi\n• İşleme göre seçim yapılabilir: preparasyon, finishing, zirkonya, polisaj\n\n[Ürün sayfasına git](${PRODUCT_LINKS.jota})`;
-  }
-
-  const navKey = getNavigationProductKey(q);
-  if (navKey) {
-    return `Tabii. İlgili sayfaya buradan geçebilirsiniz:\n\n[Ürün sayfasına git](${PRODUCT_LINKS[navKey]})`;
-  }
-
-  if (isOutOfScope(q)) {
-    return `Bu konuda yardımcı olamam; ben ${ASSISTANT_NAME} olarak DENTech Medikal ürünleri, ürün sayfaları ve sipariş süreci için yardımcı oluyorum.\n\nİsterseniz klinik cihazlar, pedodonti, ölçü sistemleri veya JOTA frezleriyle devam edebiliriz.`;
-  }
-
-  return null;
-}
-
-function isRepeatedProductQuery(q, messages, productWord) {
-  if (q !== productWord) return false;
-  const userMessages = messages.filter((m) => m.role === "user").map((m) => normalize(m.content));
-  const count = userMessages.filter((m) => m === productWord).length;
-  return count >= 2;
-}
-
-function getNavigationProductKey(q) {
-  const wantsNav = ["git", "gidelim", "aç", "ac", "açar mısın", "acar misin", "sayfa", "link", "tıkla", "tikla", "yönlendir", "yonlendir", "çalışmıyor", "calismiyor", "tıklanabilir", "tiklanabilir"].some((k) => q.includes(k));
-  if (!wantsNav) return null;
-
-  if (q.includes("jota") || q.includes("frez")) return "jota";
-  if (q.includes("hulaser") || q.includes("k2") || q.includes("lazer")) return "hulaser";
-  if (q.includes("rvg") || q.includes("xpect") || q.includes("sensör") || q.includes("sensor")) return "rvg";
-  if (q.includes("jb") || q.includes("tray")) return "jbtray";
-  if (q.includes("icrown") || q.includes("pçk") || q.includes("pck") || q.includes("kron")) return "icrown";
-  if (q.includes("mirror") || q.includes("suction") || q.includes("ayna")) return "mirror";
-  if (q.includes("putty")) return "smartsilPutty";
-  if (q.includes("light body")) return "smartsilLight";
-  if (q.includes("bite")) return "smartsilBite";
-  if (q.includes("alginomer")) return "alginomer";
-  if (q.includes("biokalgin")) return "biokalgin";
-  if (q.includes("gelmak")) return "gelmak";
-  return null;
-}
-
-function isGreeting(q) {
-  return /^(selam|selamlar|merhaba|mrb|slm|hello|hi|iyi günler|iyi gunler|günaydın|gunaydin|nasılsın|nasilsin|naber|ne haber)[\s!.?]*$/.test(q) ||
-    /^(selam|merhaba|mrb|slm).*(nasılsın|nasilsin|naber|ne haber)/.test(q);
-}
-
-function isPoliteOnly(q) {
-  return ["teşekkürler", "tesekkurler", "teşekkür ederim", "tesekkur ederim", "sağol", "sagol", "tamam", "ok", "eyvallah", "kibarlık olsun diye söyledim", "kibarlik olsun diye soyledim"].includes(q);
-}
-
-function isOutOfScope(q) {
-  const allowed = [
-    "dentech", "dentek", "deo", "ürün", "urun", "sipariş", "siparis", "stok", "fiyat", "kampanya", "demo", "garanti", "teknik servis", "temsilci", "whatsapp", "instagram", "klinik", "hekim", "diş", "dis", "dental", "diş hekimi", "dis hekimi", "doktor", "dr",
-    "hulaser", "k2", "lazer", "diyot", "diode", "980", "soft tissue", "yumuşak doku", "yumusak doku",
-    "rvg", "xpect", "xpectvision", "sensör", "sensor", "intraoral", "görüntüleme", "goruntuleme", "radyografi", "röntgen", "rontgen",
-    "jb", "tray", "ölçü", "olcu", "kapanış", "kapanis", "cr kaydı", "cr kaydi", "dikey boyut", "border molding", "total protez", "protez",
-    "icrown", "i crown", "pçk", "pck", "paslanmaz", "çelik kron", "celik kron", "çocuk kron", "cocuk kron", "pedodonti", "süt azı", "sut azi", "kron",
-    "mirror", "suction", "ayna", "aspirasyon", "emiş", "emis",
-    "jota", "frez", "bur", "burs", "rotary", "elmas", "karbit", "carbide", "diamond", "zirkonya", "seramik", "kompozit", "polisaj", "polisher", "finishing", "preparasyon", "820f", "850f", "837d", "801", "830", "851l", "essential",
-    "smartsil", "smart sil", "putty", "light body", "bite", "bite registration", "silikon", "ölçü materyali", "olcu materyali",
-    "aljinat", "alginat", "alginate", "alginomer", "biokalgin", "gelmak", "brulon",
-    "link", "sayfa", "git", "aç", "ac", "yönlendir", "yonlendir", "çalışmıyor", "calismiyor", "tıklanabilir", "tiklanabilir"
-  ];
-
-  const blocked = ["hava durumu", "maç", "mac", "futbol", "siyaset", "borsa", "bitcoin", "kripto", "yemek tarifi", "şiir", "siir", "hikaye", "film", "dizi", "magazin", "ödev", "odev"];
-  if (blocked.some((k) => q.includes(k))) return true;
-  return !allowed.some((k) => q.includes(k));
-}
-
-function normalize(text = "") {
-  return String(text).toLowerCase().trim().replace(/\s+/g, " ");
 }
 
 function corsHeaders(req) {
   const origin = req.headers.get("origin") || "";
   const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : "https://dentechmedikal.com";
+
   return {
     "Access-Control-Allow-Origin": allowOrigin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
