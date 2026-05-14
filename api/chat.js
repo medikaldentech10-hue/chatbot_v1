@@ -29,8 +29,7 @@ const PRODUCT_LINKS = {
   gelmak: "https://dentechmedikal.com/gelmak-pro-453gr",
   alginomer: "https://dentechmedikal.com/alginomer-plus-453gr",
   biokalgin: "https://dentechmedikal.com/biokalgin-pro-453gr",
-  // Etkinlik için kayıt linkini buraya ekleyebilirsin (Şu an WhatsApp'a veya ana sayfaya yönlendiriyor)
-  event: WHATSAPP_URL, 
+  event: "https://dentechmedikal.com/pages/seil-global-seminer-06-26",
 };
 
 const PRODUCT_KB = `
@@ -316,34 +315,35 @@ Aljinat ürün grubumuz günlük klinik ölçü ihtiyaçları için pratik seçe
 Hangi kullanım için aljinat bakıyorsunuz?
 `;
 
-// YENİ EKLENEN ETKİNLİK BİLGİ BANKASI
 const EVENT_KB = `
 # ETKİNLİK BİLGİ BANKASI
 
 ETKİNLİK TEMEL BİLGİLERİ:
-- Etkinlik Adı: TEK ADIMDA Klinik Protokol (İnovasyon Günleri)
+- Etkinlik Adı: TEK ADIMDA Klinik Protokol (İnovasyon Günleri / JB Tray Semineri)
 - Organizatörler: DENTech Medikal & Seil Global
 - Mekan: Crowne Plaza Istanbul - Tuzla
 - Kontenjan: Maksimum 50 seçkin katılımcı ile sınırlıdır.
 - Konsept: Geleneksel ölçü/dizilim yöntemleriyle dijital teknolojilerin (JB Tray, JB Fork, ZirADD, CAD/CAM) gerçek zamanlı entegrasyonu ve canlı hasta (Live Demo) uygulamaları.
 
 TARİH VE PROGRAM BİLGİSİ:
-- 1. GÜN (Diş Teknisyenleri İçin): 20 Haziran 2026, Cumartesi | 14:00 - 18:00 (Yarım Gün). Eğitmen: DT Il-Hwan Jang. Ana Konular: JB Tray ile analog diş dizilimi, dijital üretim iş akışları ve SR Nexco ile ileri düzey diş eti karakterizasyonu (Canlı Uygulama).
-- 2. GÜN (Diş Hekimleri İçin): 21 Haziran 2026, Pazar | 09:00 - 17:00 (Tam Gün). Eğitmen: Prof. Dr. Jung-Bo Huh. Ana Konular: Tam protez yapımı, VDO belirleme, JB Tray tekniği, Canlı Hasta Deneyimi (Live Demo), JB Fork klinik uygulaması ve ZirADD materyali.
+- 1. GÜN (Diş Teknisyenleri İçin): 20 Haziran 2026, Cumartesi | 14:00 - 18:00 (Yarım Gün). Eğitmen: DT Il-Hwan Jang. 
+- 2. GÜN (Diş Hekimleri İçin): 21 Haziran 2026, Pazar | 09:00 - 17:00 (Tam Gün). Eğitmen: Prof. Dr. Jung-Bo Huh. 
 
 KATILIM VE ÜCRETLENDİRME ŞARTLARI:
 - Etkinliğe katılım için doğrudan bir bilet ücreti alınmamaktadır.
-- Tek Katılım Şartı: Katılımcının kliniği veya laboratuvarı için DENTech Medikal'den minimum 10.000 TL tutarında Seil Global ürün alımı (JB Tray, JB Fork, ZirADD blokları veya sarf malzemeleri) yapması gerekmektedir. Resmi, KDV'li fatura kesilir.
+- Tek Katılım Şartı: Eğitimimiz, laboratuvar veya kliniğiniz için DENTech Medikal'den yapılacak Seil Global ürün alışverişi (JB Tray, JB Fork, ZirADD blokları veya sarf malzemeleri vb.) şartıyla tamamen ücretsizdir.
+- Kesinlikle fiyat veya tutar (TL/Dolar) belirtme. Sadece "ürün alışverişi şartıyla" de.
+- Resmi, KDV'li fatura kesilir.
 
 KAYIT, BİLETLEME VE GİRİŞ SÜRECİ:
-- Kullanıcıyı ön kayıt veya detaylar için daima WhatsApp'a yönlendir.
-- Bilet onayı sonrası özel QR kod gönderilir. Girişte sadece bu QR kod (tek kullanımlık) okutulur.
+- Kullanıcıyı ön kayıt veya detaylar için daima etkinlik sayfasına yönlendir. Link: ${PRODUCT_LINKS.event}
+- Bilet onayı sonrası özel QR kod gönderilir. Girişte sadece bu QR kod okutulur.
 
 Örnek Cevap (Etkinlik Sorulursa):
 "TEK ADIMDA Klinik Protokol" eğitimimiz, 20-21 Haziran'da Crowne Plaza Tuzla'da gerçekleşecektir. 
 • Cumartesi teknisyenlere (DT Il-Hwan Jang), Pazar hekimlere (Prof. Dr. Jung-Bo Huh) özeldir.
-• Katılım, 10.000 TL'lik DENTech ürün alımı şartıyla ücretsizdir.
-Kayıt ve detaylar için WhatsApp'tan destek alabilirsiniz: [WhatsApp'a Git](${WHATSAPP_URL})
+• Katılım, DENTech ürün alışverişi şartıyla ücretsizdir.
+Kayıt formu ve program detayları için etkinlik sayfamızı ziyaret edebilirsiniz: [Etkinlik Sayfasına Git](${PRODUCT_LINKS.event})
 `;
 
 const SYSTEM = `Sen DENTech Medikal'in yapay zeka destekli müşteri asistanısın. Adın ${ASSISTANT_NAME}.
@@ -553,7 +553,7 @@ function getDirectReply(text, messages) {
       return `JOTA tarafında ana odağımız diş hekimi frezleri ve Essential II kit seçkisidir.\n• Elmas frez, karbit frez ve polisaj grupları bulunur\n• Figür ve grit seçimi işleme göre yapılır\n• Stok/model teyidi için temsilci kontrolü gerekir\n[Ürün sayfasına git](${PRODUCT_LINKS.jota})`;
     }
     if (product === "event") {
-      return `"TEK ADIMDA Klinik Protokol" eğitimimiz, 20-21 Haziran'da gerçekleşecektir.\n• Cumartesi teknisyenlere, Pazar hekimlere özeldir.\n• Katılım, 10.000 TL'lik DENTech ürün alımı şartıyla ücretsizdir.\nKayıt için destek alabilirsiniz: [WhatsApp'a Git](${WHATSAPP_URL})`;
+      return `"TEK ADIMDA Klinik Protokol" eğitimimiz, 20-21 Haziran'da gerçekleşecektir.\n• Cumartesi teknisyenlere, Pazar hekimlere özeldir.\n• Katılım, ürün alışverişi şartıyla ücretsizdir.\nKayıt ve detaylı bilgi için: [Etkinlik Sayfasına Git](${PRODUCT_LINKS.event})`;
     }
   }
 
@@ -603,8 +603,7 @@ function repeatedProductReply(product) {
   if (product === "hulaser") return `HULASER K2 için genel tanıtımı tekrar etmeyeyim...\nHangisi gerekli?`;
   if (product === "jbtray") return `JB Tray için genel tanıtımı tekrar etmeyeyim...\nHangi açıdan bilgi istersiniz?`;
   if (product === "rvg") return `RVG için genel tanıtımı tekrar etmeyeyim...\nHangi açıdan ilerleyelim?`;
-  if (product === "event") return `Etkinliğimiz (20-21 Haziran) hakkında detaylı bilgi için doğrudan WhatsApp destek hattımızdan bize ulaşabilirsiniz:\n${WHATSAPP_URL}`;
-
+  if (product === "event") return `Etkinliğimiz (20-21 Haziran) hakkında kayıt ve katılım şartları için doğrudan etkinlik sayfamızı inceleyebilirsiniz:\n[Etkinlik Sayfasına Git](${PRODUCT_LINKS.event})`;
   return `Aynı ürün hakkında genel tanıtımı tekrar etmeyeyim.\nModel, kullanım alanı veya ürün sayfası yönlendirmesi üzerinden devam edebiliriz.`;
 }
 
