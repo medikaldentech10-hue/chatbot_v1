@@ -29,6 +29,8 @@ const PRODUCT_LINKS = {
   gelmak: "https://dentechmedikal.com/gelmak-pro-453gr",
   alginomer: "https://dentechmedikal.com/alginomer-plus-453gr",
   biokalgin: "https://dentechmedikal.com/biokalgin-pro-453gr",
+  // Etkinlik için kayıt linkini buraya ekleyebilirsin (Şu an WhatsApp'a veya ana sayfaya yönlendiriyor)
+  event: WHATSAPP_URL, 
 };
 
 const PRODUCT_KB = `
@@ -314,6 +316,36 @@ Aljinat ürün grubumuz günlük klinik ölçü ihtiyaçları için pratik seçe
 Hangi kullanım için aljinat bakıyorsunuz?
 `;
 
+// YENİ EKLENEN ETKİNLİK BİLGİ BANKASI
+const EVENT_KB = `
+# ETKİNLİK BİLGİ BANKASI
+
+ETKİNLİK TEMEL BİLGİLERİ:
+- Etkinlik Adı: TEK ADIMDA Klinik Protokol (İnovasyon Günleri)
+- Organizatörler: DENTech Medikal & Seil Global
+- Mekan: Crowne Plaza Istanbul - Tuzla
+- Kontenjan: Maksimum 50 seçkin katılımcı ile sınırlıdır.
+- Konsept: Geleneksel ölçü/dizilim yöntemleriyle dijital teknolojilerin (JB Tray, JB Fork, ZirADD, CAD/CAM) gerçek zamanlı entegrasyonu ve canlı hasta (Live Demo) uygulamaları.
+
+TARİH VE PROGRAM BİLGİSİ:
+- 1. GÜN (Diş Teknisyenleri İçin): 20 Haziran 2026, Cumartesi | 14:00 - 18:00 (Yarım Gün). Eğitmen: DT Il-Hwan Jang. Ana Konular: JB Tray ile analog diş dizilimi, dijital üretim iş akışları ve SR Nexco ile ileri düzey diş eti karakterizasyonu (Canlı Uygulama).
+- 2. GÜN (Diş Hekimleri İçin): 21 Haziran 2026, Pazar | 09:00 - 17:00 (Tam Gün). Eğitmen: Prof. Dr. Jung-Bo Huh. Ana Konular: Tam protez yapımı, VDO belirleme, JB Tray tekniği, Canlı Hasta Deneyimi (Live Demo), JB Fork klinik uygulaması ve ZirADD materyali.
+
+KATILIM VE ÜCRETLENDİRME ŞARTLARI:
+- Etkinliğe katılım için doğrudan bir bilet ücreti alınmamaktadır.
+- Tek Katılım Şartı: Katılımcının kliniği veya laboratuvarı için DENTech Medikal'den minimum 10.000 TL tutarında Seil Global ürün alımı (JB Tray, JB Fork, ZirADD blokları veya sarf malzemeleri) yapması gerekmektedir. Resmi, KDV'li fatura kesilir.
+
+KAYIT, BİLETLEME VE GİRİŞ SÜRECİ:
+- Kullanıcıyı ön kayıt veya detaylar için daima WhatsApp'a yönlendir.
+- Bilet onayı sonrası özel QR kod gönderilir. Girişte sadece bu QR kod (tek kullanımlık) okutulur.
+
+Örnek Cevap (Etkinlik Sorulursa):
+"TEK ADIMDA Klinik Protokol" eğitimimiz, 20-21 Haziran'da Crowne Plaza Tuzla'da gerçekleşecektir. 
+• Cumartesi teknisyenlere (DT Il-Hwan Jang), Pazar hekimlere (Prof. Dr. Jung-Bo Huh) özeldir.
+• Katılım, 10.000 TL'lik DENTech ürün alımı şartıyla ücretsizdir.
+Kayıt ve detaylar için WhatsApp'tan destek alabilirsiniz: [WhatsApp'a Git](${WHATSAPP_URL})
+`;
+
 const SYSTEM = `Sen DENTech Medikal'in yapay zeka destekli müşteri asistanısın. Adın ${ASSISTANT_NAME}.
 
 # GÖREV
@@ -369,6 +401,8 @@ Fiyat, stok ve sipariş bilgisi sağlık meslek mensubu doğrulaması sonrası p
 ${WHATSAPP_URL}
 
 ${PRODUCT_KB}
+
+${EVENT_KB}
 `;
 
 export default async function handler(req) {
@@ -413,7 +447,7 @@ export default async function handler(req) {
 
   if (isOutOfScope(lastUserMessage)) {
     return chatResponse(
-      "Bu konuda yardımcı olamam; ben DEO AI olarak DENTech Medikal ürünleri, ürün sayfaları ve sipariş süreci için yardımcı oluyorum.\n\nKlinik cihazlar, pedodonti, ölçü sistemleri veya JOTA frezleriyle devam etmek ister misiniz?",
+      "Bu konuda yardımcı olamam; ben DEO AI olarak DENTech Medikal ürünleri, etkinliklerimiz ve sipariş süreci için yardımcı oluyorum.\n\nKlinik cihazlar, eğitim programımız veya JOTA frezleriyle devam etmek ister misiniz?",
       req
     );
   }
@@ -485,19 +519,19 @@ function getDirectReply(text, messages) {
   const detectedProduct = detectProduct(text);
 
   if (isGreeting(q)) {
-    return `Merhaba, iyiyim teşekkür ederim. Ben DEO AI; DENTech Medikal ürünleriyle ilgili hızlıca yardımcı olabilirim.\n\nHangi ürün grubuyla ilgileniyorsunuz?`;
+    return `Merhaba, iyiyim teşekkür ederim. Ben DEO AI; DENTech Medikal ürünleri ve eğitimlerimizle ilgili hızlıca yardımcı olabilirim.\n\nHangi konuyla ilgileniyorsunuz?`;
   }
 
   if (isThanksOrPolite(q)) {
-    return `Rica ederim. DENTech Medikal ürünleriyle ilgili bir konuda devam etmek isterseniz buradayım.\n\nKlinik cihazlar, JOTA frezleri, JB Tray veya pedodonti ürünlerinden hangisini inceleyelim?`;
+    return `Rica ederim. DENTech Medikal ile ilgili bir konuda devam etmek isterseniz buradayım.\n\nÜrün gruplarımız veya yeni eğitim seminerimiz (TEK ADIMDA Klinik Protokol) hakkında bilgi almak ister misiniz?`;
   }
 
   if (isLinkRequest(q)) {
     const product = detectedProduct || lastProduct;
     if (product && PRODUCT_LINKS[product]) {
-      return `Tabii, ilgili sayfaya buradan geçebilirsiniz:\n[Ürün sayfasına git](${PRODUCT_LINKS[product]})`;
+      return `Tabii, ilgili sayfaya buradan geçebilirsiniz:\n[Bağlantıya git](${PRODUCT_LINKS[product]})`;
     }
-    return `Hangi ürün sayfasına yönlendireyim?\n\nJOTA, HULASER K2, RVG, JB Tray, iCrown PÇK veya Mirror Suction yazabilirsiniz.`;
+    return `Hangi sayfaya yönlendireyim?\n\nEtkinlik, JOTA, HULASER K2, RVG, JB Tray veya diğer ürünlerimizi yazabilirsiniz.`;
   }
 
   if (isWhatsappRequest(q)) {
@@ -518,6 +552,9 @@ function getDirectReply(text, messages) {
     if (product === "jota") {
       return `JOTA tarafında ana odağımız diş hekimi frezleri ve Essential II kit seçkisidir.\n• Elmas frez, karbit frez ve polisaj grupları bulunur\n• Figür ve grit seçimi işleme göre yapılır\n• Stok/model teyidi için temsilci kontrolü gerekir\n[Ürün sayfasına git](${PRODUCT_LINKS.jota})`;
     }
+    if (product === "event") {
+      return `"TEK ADIMDA Klinik Protokol" eğitimimiz, 20-21 Haziran'da gerçekleşecektir.\n• Cumartesi teknisyenlere, Pazar hekimlere özeldir.\n• Katılım, 10.000 TL'lik DENTech ürün alımı şartıyla ücretsizdir.\nKayıt için destek alabilirsiniz: [WhatsApp'a Git](${WHATSAPP_URL})`;
+    }
   }
 
   return null;
@@ -525,52 +562,25 @@ function getDirectReply(text, messages) {
 
 function isGreeting(q) {
   const greetings = [
-    "selam",
-    "selamlar",
-    "merhaba",
-    "mrb",
-    "slm",
-    "naber",
-    "nasilsin",
-    "nasilsiniz",
-    "iyi misin",
-    "gunaydin",
-    "iyi gunler",
-    "iyi aksamlar",
+    "selam", "selamlar", "merhaba", "mrb", "slm", "naber", "nasilsin", 
+    "nasilsiniz", "iyi misin", "gunaydin", "iyi gunler", "iyi aksamlar"
   ];
   return greetings.some((g) => q === g || q.includes(g));
 }
 
 function isThanksOrPolite(q) {
   const items = [
-    "tesekkur",
-    "tesekkurler",
-    "sag ol",
-    "sagol",
-    "eyvallah",
-    "tamam",
-    "ok",
-    "anladim",
-    "kibarlik",
-    "kibarlik olsun",
+    "tesekkur", "tesekkurler", "sag ol", "sagol", "eyvallah", 
+    "tamam", "ok", "anladim", "kibarlik", "kibarlik olsun"
   ];
   return items.some((x) => q === x || q.includes(x));
 }
 
 function isLinkRequest(q) {
   const linkWords = [
-    "link",
-    "tiklanabilir",
-    "tiklanmiyor",
-    "calismiyor",
-    "yok calismiyor",
-    "sayfaya git",
-    "sayfasina git",
-    "urun sayfasi",
-    "ac",
-    "acabilir misin",
-    "yonlendir",
-    "gidebilir miyim",
+    "link", "tiklanabilir", "tiklanmiyor", "calismiyor", "yok calismiyor", 
+    "sayfaya git", "sayfasina git", "urun sayfasi", "ac", "acabilir misin", 
+    "yonlendir", "gidebilir miyim"
   ];
   return linkWords.some((x) => q.includes(x));
 }
@@ -580,7 +590,7 @@ function isWhatsappRequest(q) {
 }
 
 function isRepeatedShortProductQuery(q, messages) {
-  const shortProductWords = ["jota", "rvg", "jb tray", "jb", "hulaser", "k2", "icrown", "pck", "mirror", "suction"];
+  const shortProductWords = ["jota", "rvg", "jb tray", "jb", "hulaser", "k2", "icrown", "pck", "mirror", "suction", "etkinlik", "seminer"];
   if (!shortProductWords.includes(q)) return false;
 
   const userMessages = messages.filter((m) => m.role === "user").map((m) => normalizeText(m.content));
@@ -589,23 +599,13 @@ function isRepeatedShortProductQuery(q, messages) {
 }
 
 function repeatedProductReply(product) {
-  if (product === "jota") {
-    return `JOTA için aynı genel tanıtımı tekrar etmeyeyim.\n\nSize daha net yardımcı olmak için tek seçim yeterli:\n• Essential II kit içeriği\n• Belirli figür/model: örn. 820F\n• İşleme göre frez önerisi\n\nHangi yönden ilerleyelim?`;
-  }
+  if (product === "jota") return `JOTA için aynı genel tanıtımı tekrar etmeyeyim...\nHangi yönden ilerleyelim?`;
+  if (product === "hulaser") return `HULASER K2 için genel tanıtımı tekrar etmeyeyim...\nHangisi gerekli?`;
+  if (product === "jbtray") return `JB Tray için genel tanıtımı tekrar etmeyeyim...\nHangi açıdan bilgi istersiniz?`;
+  if (product === "rvg") return `RVG için genel tanıtımı tekrar etmeyeyim...\nHangi açıdan ilerleyelim?`;
+  if (product === "event") return `Etkinliğimiz (20-21 Haziran) hakkında detaylı bilgi için doğrudan WhatsApp destek hattımızdan bize ulaşabilirsiniz:\n${WHATSAPP_URL}`;
 
-  if (product === "hulaser") {
-    return `HULASER K2 için genel tanıtımı tekrar etmeyeyim.\n\nİsterseniz kullanım alanları, teknik özellikler veya demo/temsilci yönlendirmesi üzerinden ilerleyebiliriz. Hangisi gerekli?`;
-  }
-
-  if (product === "jbtray") {
-    return `JB Tray için genel tanıtımı tekrar etmeyeyim.\n\nFinal ölçü, kapanış kaydı veya kullanım workflow’u açısından mı bilgi istersiniz?`;
-  }
-
-  if (product === "rvg") {
-    return `RVG için genel tanıtımı tekrar etmeyeyim.\n\nGörüntü kalitesi, AI destekli analiz veya kurulum/lisans süreci açısından mı ilerleyelim?`;
-  }
-
-  return `Aynı ürün hakkında genel tanıtımı tekrar etmeyeyim.\n\nModel, kullanım alanı veya ürün sayfası yönlendirmesi üzerinden devam edebiliriz.`;
+  return `Aynı ürün hakkında genel tanıtımı tekrar etmeyeyim.\nModel, kullanım alanı veya ürün sayfası yönlendirmesi üzerinden devam edebiliriz.`;
 }
 
 function isPureProductNav(q) {
@@ -624,37 +624,17 @@ function getLastProductFromMessages(messages) {
 function detectProduct(text = "") {
   const q = normalizeText(text);
 
-  if (q.includes("jota") || q.includes("frez") || q.includes("820f") || q.includes("elmas") || q.includes("karbit")) {
-    return "jota";
-  }
-
-  if (q.includes("hulaser") || q.includes("k2") || q.includes("diyot lazer") || q.includes("lazer")) {
-    return "hulaser";
-  }
-
-  if (q.includes("rvg") || q.includes("xpect") || q.includes("sensor") || q.includes("intraoral") || q.includes("goruntuleme")) {
-    return "rvg";
-  }
-
-  if (q.includes("jb tray") || q === "jb" || q.includes("olcu") || q.includes("kapanis") || q.includes("total protez")) {
-    return "jbtray";
-  }
-
-  if (q.includes("icrown") || q.includes("i crown") || q.includes("pck") || q.includes("pçk") || q.includes("cocuk kron") || q.includes("paslanmaz")) {
-    return "icrown";
-  }
-
-  if (q.includes("mirror") || q.includes("suction") || q.includes("ayna") || q.includes("aspirasyon")) {
-    return "mirror";
-  }
-
-  if (q.includes("smartsil") || q.includes("smart sil") || q.includes("putty") || q.includes("light body") || q.includes("bite")) {
-    return "smartsilPutty";
-  }
-
-  if (q.includes("alginat") || q.includes("alginate") || q.includes("alginomer") || q.includes("biokalgin") || q.includes("gelmak")) {
-    return "alginomer";
-  }
+  if (q.includes("jota") || q.includes("frez") || q.includes("820f") || q.includes("elmas") || q.includes("karbit")) return "jota";
+  if (q.includes("hulaser") || q.includes("k2") || q.includes("diyot lazer") || q.includes("lazer")) return "hulaser";
+  if (q.includes("rvg") || q.includes("xpect") || q.includes("sensor") || q.includes("intraoral") || q.includes("goruntuleme")) return "rvg";
+  if (q.includes("jb tray") || q === "jb" || q.includes("olcu") || q.includes("kapanis") || q.includes("total protez")) return "jbtray";
+  if (q.includes("icrown") || q.includes("i crown") || q.includes("pck") || q.includes("pçk") || q.includes("cocuk kron") || q.includes("paslanmaz")) return "icrown";
+  if (q.includes("mirror") || q.includes("suction") || q.includes("ayna") || q.includes("aspirasyon")) return "mirror";
+  if (q.includes("smartsil") || q.includes("smart sil") || q.includes("putty") || q.includes("light body") || q.includes("bite")) return "smartsilPutty";
+  if (q.includes("alginat") || q.includes("alginate") || q.includes("alginomer") || q.includes("biokalgin") || q.includes("gelmak")) return "alginomer";
+  
+  // YENİ EKLENEN ETKİNLİK ALGILAYICI
+  if (q.includes("etkinlik") || q.includes("egitim") || q.includes("seminer") || q.includes("kurs") || q.includes("kongre") || q.includes("huh") || q.includes("jang")) return "event";
 
   return null;
 }
@@ -663,133 +643,39 @@ function isOutOfScope(text = "") {
   const q = normalizeText(text);
 
   const blockedKeywords = [
-    "hava durumu",
-    "mac skoru",
-    "futbol",
-    "siyaset",
-    "borsa",
-    "bitcoin",
-    "kripto",
-    "yemek tarifi",
-    "siir yaz",
-    "hikaye yaz",
-    "film oner",
-    "dizi oner",
-    "magazin",
-    "odev",
-    "matematik coz",
-    "kod yaz",
+    "hava durumu", "mac skoru", "futbol", "siyaset", "borsa", "bitcoin", 
+    "kripto", "yemek tarifi", "siir yaz", "hikaye yaz", "film oner", 
+    "dizi oner", "magazin", "odev", "matematik coz", "kod yaz"
   ];
 
   if (blockedKeywords.some((k) => q.includes(k))) return true;
 
   const allowedKeywords = [
     // firma / satış
-    "dentech",
-    "dentek",
-    "deo",
-    "urun",
-    "siparis",
-    "stok",
-    "fiyat",
-    "kampanya",
-    "demo",
-    "garanti",
-    "teknik servis",
-    "temsilci",
-    "whatsapp",
-    "instagram",
-    "iletisim",
-    "klinik",
-    "hekim",
-    "dis",
-    "dental",
-    "doktor",
-    "malzeme",
+    "dentech", "dentek", "deo", "urun", "siparis", "stok", "fiyat", "kampanya", 
+    "demo", "garanti", "teknik servis", "temsilci", "whatsapp", "instagram", 
+    "iletisim", "klinik", "hekim", "dis", "dental", "doktor", "malzeme",
+
+    // YENİ EKLENEN ETKİNLİK İZİNLERİ
+    "etkinlik", "seminer", "kurs", "egitim", "kongre", "tek adimda", 
+    "huh", "jang", "kayit", "bilet", "rezervasyon", "tarih", "nerede", "otel", "tuzla",
 
     // HULASER
-    "hulaser",
-    "k2",
-    "lazer",
-    "diyot",
-    "diode",
-    "980",
-    "soft tissue",
-    "yumusak doku",
-
+    "hulaser", "k2", "lazer", "diyot", "diode", "980", "soft tissue", "yumusak doku",
     // RVG
-    "rvg",
-    "xpect",
-    "xpectvision",
-    "sensor",
-    "intraoral",
-    "goruntuleme",
-    "radyografi",
-
+    "rvg", "xpect", "xpectvision", "sensor", "intraoral", "goruntuleme", "radyografi",
     // JB Tray
-    "jb",
-    "tray",
-    "olcu",
-    "kapanis",
-    "cr kaydi",
-    "dikey boyut",
-    "border molding",
-    "total protez",
-    "protez",
-
+    "jb", "tray", "olcu", "kapanis", "cr kaydi", "dikey boyut", "border molding", "total protez", "protez",
     // iCrown
-    "icrown",
-    "i crown",
-    "pck",
-    "pçk",
-    "paslanmaz",
-    "cocuk kron",
-    "pedodonti",
-    "sut azi",
-    "kron",
-
+    "icrown", "i crown", "pck", "pçk", "paslanmaz", "cocuk kron", "pedodonti", "sut azi", "kron",
     // Mirror
-    "mirror",
-    "suction",
-    "ayna",
-    "aspirasyon",
-    "emis",
-
+    "mirror", "suction", "ayna", "aspirasyon", "emis",
     // JOTA
-    "jota",
-    "frez",
-    "bur",
-    "burs",
-    "820f",
-    "essential",
-    "essential ii",
-    "elmas",
-    "karbit",
-    "carbide",
-    "diamond",
-    "zirkonya",
-    "seramik",
-    "kompozit",
-    "polisaj",
-    "polisher",
-    "finishing",
-    "preparasyon",
-
+    "jota", "frez", "bur", "burs", "820f", "essential", "essential ii", "elmas", "karbit", "carbide", "diamond", "zirkonya", "seramik", "kompozit", "polisaj", "polisher", "finishing", "preparasyon",
     // SmartSil
-    "smartsil",
-    "smart sil",
-    "putty",
-    "light body",
-    "bite",
-    "silikon",
-
+    "smartsil", "smart sil", "putty", "light body", "bite", "silikon",
     // Alginate
-    "alginat",
-    "alginate",
-    "alginomer",
-    "biokalgin",
-    "gelmak",
-    "brulon",
+    "alginat", "alginate", "alginomer", "biokalgin", "gelmak", "brulon",
   ];
 
   if (allowedKeywords.some((k) => q.includes(k))) return false;
