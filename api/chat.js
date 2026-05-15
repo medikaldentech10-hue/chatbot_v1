@@ -29,7 +29,7 @@ const PRODUCT_LINKS = {
   gelmak: "https://dentechmedikal.com/gelmak-pro-453gr",
   alginomer: "https://dentechmedikal.com/alginomer-plus-453gr",
   biokalgin: "https://dentechmedikal.com/biokalgin-pro-453gr",
-  event: "https://dentechmedikal.com/pages/seil-global-seminer-06-26",
+  event: "https://dentechmedikal.com/pages/jb-tray-semineri",
 };
 
 const PRODUCT_KB = `
@@ -319,11 +319,18 @@ const EVENT_KB = `
 # ETKİNLİK BİLGİ BANKASI
 
 ETKİNLİK TEMEL BİLGİLERİ:
-- Etkinlik Adı: TEK ADIMDA Klinik Protokol (İnovasyon Günleri / JB Tray Semineri)
-- Organizatörler: DENTech Medikal & Seil Global
-- Mekan: Crowne Plaza Istanbul - Tuzla
-- Kontenjan: Maksimum 50 seçkin katılımcı ile sınırlıdır.
-- Konsept: Geleneksel ölçü/dizilim yöntemleriyle dijital teknolojilerin (JB Tray, JB Fork, ZirADD, CAD/CAM) gerçek zamanlı entegrasyonu ve canlı hasta (Live Demo) uygulamaları.
+- Etkinlik Adı: JB Tray • JB Fork • ZirADD Eğitim Semineri
+- Mekan: Crowne Plaza Tuzla Viaport Marina
+- Tarih: 20-21 Haziran 2026
+- Konsept: Ürünlerin geliştiricileri Türkiye'de olacak. Canlı vaka uygulamaları, A'dan Z'ye detaylı öğrenim, klinik ve laboratuvar iş akışlarına dair pratik bilgiler verilecek. Türkçe çeviri/seslendirme mevcuttur.
+- İkramlar: Öğle yemeği, ara öğünler, atıştırmalıklar, kahve, çay ve su ikramları DENTech Medikal tarafından ücretsiz sunulacaktır.
+
+KATILIM ŞARTI:
+- Eğitim semineri ücretsizdir ancak katılım şartı olarak 3 kutu ürün alımı gerekmektedir. 
+- Bu şartın sebebi: Eğitimin gerçekten uygulamaya dönüşmesini, katılan hekim ve teknisyenlerin ürünleri eğitim öncesinde/sonrasında deneyimleyerek süreci daha verimli şekilde takip edebilmesini sağlamaktır.
+
+KAYIT VE YÖNLENDİRME:
+- Kullanıcıyı ön kayıt veya detaylar için daima etkinlik sayfasına yönlendir. Link: ${PRODUCT_LINKS.event}
 
 TARİH VE PROGRAM BİLGİSİ:
 - 1. GÜN (Diş Teknisyenleri İçin): 20 Haziran 2026, Cumartesi | 14:00 - 18:00 (Yarım Gün). Eğitmen: DT Il-Hwan Jang. 
@@ -523,7 +530,7 @@ function getDirectReply(text, messages) {
   }
 
   if (isThanksOrPolite(q)) {
-    return `Rica ederim. DENTech Medikal ile ilgili bir konuda devam etmek isterseniz buradayım.\n\nÜrün gruplarımız veya yeni eğitim seminerimiz (TEK ADIMDA Klinik Protokol) hakkında bilgi almak ister misiniz?`;
+    return `Rica ederim. DENTech Medikal ile ilgili bir konuda devam etmek isterseniz buradayım.\n\nÜrün gruplarımız veya yeni eğitim seminerimiz (Jb Tray Semineri) hakkında bilgi almak ister misiniz?`;
   }
 
   if (isLinkRequest(q)) {
@@ -553,7 +560,7 @@ function getDirectReply(text, messages) {
       return `JOTA tarafında ana odağımız diş hekimi frezleri ve Essential II kit seçkisidir.\n• Elmas frez, karbit frez ve polisaj grupları bulunur\n• Figür ve grit seçimi işleme göre yapılır\n• Stok/model teyidi için temsilci kontrolü gerekir\n[Ürün sayfasına git](${PRODUCT_LINKS.jota})`;
     }
     if (product === "event") {
-      return `"TEK ADIMDA Klinik Protokol" eğitimimiz, 20-21 Haziran'da gerçekleşecektir.\n• Cumartesi teknisyenlere, Pazar hekimlere özeldir.\n• Katılım, ürün alışverişi şartıyla ücretsizdir.\nKayıt ve detaylı bilgi için: [Etkinlik Sayfasına Git](${PRODUCT_LINKS.event})`;
+      return `Merhaba, ilginiz için teşekkür ederiz.\n\n20-21 Haziran’da Crowne Plaza Tuzla Viaport Marina’da düzenleyeceğimiz **JB Tray • JB Fork • ZirADD** eğitim semineri ücretsizdir.\n\nBu özel eğitimde ürünlerin geliştiricileri Türkiye’de olacak ve katılımcılar;\n• Canlı vaka üzerinde uygulamaları görebilecek\n• Ürünleri A’dan Z’ye detaylı şekilde öğrenebilecek\n• Klinik ve laboratuvar iş akışlarına dair pratik bilgiler alabilecek\n• Eğitim boyunca Türkçe çeviri / seslendirme desteğinden faydalanabilecek\n\nAyrıca otelde öğle yemeği, ara öğünler, atıştırmalıklar, kahve, çay ve su ikramları da DENTech Medikal tarafından ücretsiz olarak sunulacaktır.\n\n**Katılım Şartı:** 3 kutu ürün alımı gerekmektedir. Bu şartı koymamızın sebebi; eğitimin gerçekten uygulamaya dönüşmesini, katılan hekim ve teknisyenlerin ürünleri eğitim öncesinde veya sonrasında deneyimleyerek süreci daha verimli şekilde takip edebilmesini sağlamaktır.\n\n👇 Kayıt ve detaylı bilgi için aşağıdaki bağlantıya tıklayabilirsiniz:\n[KAYIT VE DETAYLI BİLGİ İÇİN TIKLAYIN](${PRODUCT_LINKS.event})\n\nAklınıza takılan herhangi bir soru olursa bizimle iletişime geçebilirsiniz.`;
     }
   }
 
