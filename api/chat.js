@@ -345,13 +345,9 @@ KATILIM VE ÜCRETLENDİRME ŞARTLARI:
 KAYIT, BİLETLEME VE GİRİŞ SÜRECİ:
 - Kullanıcıyı ön kayıt veya detaylar için daima etkinlik sayfasına yönlendir. Link: ${PRODUCT_LINKS.event}
 - Bilet onayı sonrası özel QR kod gönderilir. Girişte sadece bu QR kod okutulur.
+;
 
-Örnek Cevap (Etkinlik Sorulursa):
-"TEK ADIMDA Klinik Protokol" eğitimimiz, 20-21 Haziran'da Crowne Plaza Tuzla'da gerçekleşecektir. 
-• Cumartesi teknisyenlere (DT Il-Hwan Jang), Pazar hekimlere (Prof. Dr. Jung-Bo Huh) özeldir.
-• Katılım, DENTech ürün alışverişi şartıyla ücretsizdir.
-Kayıt formu ve program detayları için etkinlik sayfamızı ziyaret edebilirsiniz: [Etkinlik Sayfasına Git](${PRODUCT_LINKS.event})
-`;
+const SEMINER_KB = `
 
 const SYSTEM = `Sen DENTech Medikal'in yapay zeka destekli müşteri asistanısın. Adın ${ASSISTANT_NAME}.
 
